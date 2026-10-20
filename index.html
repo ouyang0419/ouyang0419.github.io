@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>欧阳文辉</title>
-  <meta name="description" content="欧阳文辉，Python / 全栈。做过数字人直播和知识库问答，正在做云朵售后。" />
+  <meta name="description" content="欧阳文辉，Python / 全栈。正在做云朵售后，数字人直播只做过后端接口。" />
   <meta name="theme-color" content="#000000" />
   <link rel="stylesheet" href="assets/site.css" />
 </head>
@@ -20,7 +20,7 @@
               <h1>欧阳文辉</h1>
               <p class="age">Python / 全栈</p>
             </div>
-            <p class="lead">做过数字人直播和知识库问答，正在做多平台售后系统。全栈、爬虫逆向和服务器运维都可以独立交付。</p>
+            <p class="lead">正在做多平台售后系统。数字人直播只做过后端接口。全栈、爬虫逆向和服务器运维都可以独立交付。</p>
           </div>
           <dl class="facts">
             <dt>工作</dt>
@@ -32,7 +32,6 @@
               <ul class="chips">
                 <li>Python</li>
                 <li>FastAPI</li>
-                <li>LangChain</li>
                 <li>Vue 3</li>
                 <li>Electron</li>
                 <li>TypeScript</li>
@@ -63,15 +62,8 @@
           <button type="button" class="card" data-open="live" aria-controls="detail-live">
             <span class="card-meta">直播系统</span>
             <span class="card-body">
-              <span class="card-title">数字人 AI 直播</span>
-              <span class="card-copy">从 0 到 1 搭建的直播系统。负责直播间服务、弹幕对话和稳定性。</span>
-            </span>
-          </button>
-          <button type="button" class="card" data-open="rag" aria-controls="detail-rag">
-            <span class="card-meta">问答</span>
-            <span class="card-body">
-              <span class="card-title">企业知识库问答</span>
-              <span class="card-copy">上传文档后直接提问，回答能回到原文和页码。</span>
+              <span class="card-title">数字人直播后端</span>
+              <span class="card-copy">用 FastAPI 做直播间接口。多步创建模板直播间，并用 WebSocket 按直播时长扣金币。</span>
             </span>
           </button>
         </section>
@@ -94,30 +86,16 @@
       <article class="detail" id="detail-live" data-project="live" hidden>
         <button type="button" class="back" data-close>返回介绍</button>
         <p class="eyebrow">湖南博皓</p>
-        <h2>数字人 AI 直播</h2>
-        <p class="lead">从 0 到 1 搭建的直播系统，负责直播间服务、对话和稳定性。</p>
+        <h2>数字人直播后端</h2>
+        <p class="lead">直播系统的后端接口和业务逻辑，用 FastAPI。</p>
         <ul>
-          <li>FastAPI 提供直播间创建、状态同步和心跳。</li>
-          <li>LangChain 接通义千问，做弹幕回复、商品介绍和多轮记忆。</li>
-          <li>复合索引和 SQL 重写后，接口响应时间降低 30%。</li>
-          <li>断线重连、消息压缩和心跳，保证直播间持续在线。</li>
+          <li>直播间按多步流程创建，可以落成模板直播间。</li>
+          <li>用 WebSocket 按直播时长扣金币。</li>
+          <li>同一套接口里还有其他业务逻辑。</li>
         </ul>
-        <p class="stack">Python · FastAPI · LangChain · MySQL · WebSocket</p>
+        <p class="stack">Python · FastAPI · WebSocket</p>
       </article>
 
-      <article class="detail" id="detail-rag" data-project="rag" hidden>
-        <button type="button" class="back" data-close>返回介绍</button>
-        <p class="eyebrow">知识库</p>
-        <h2>企业知识库问答</h2>
-        <p class="lead">上传文档后直接提问，回答能回到原文和页码。</p>
-        <ul>
-          <li>原文和切片放 MongoDB，向量放 PostgreSQL。</li>
-          <li>向量召回和全文召回一起用，再经模型重排后生成。</li>
-          <li>回答可以点回原文所在页。</li>
-          <li>React 支持上传、多轮对话和流式输出。</li>
-        </ul>
-        <p class="stack">Python · FastAPI · PostgreSQL · MongoDB · React</p>
-      </article>
     </div>
   </div>
   <script src="assets/desk.js"></script>
