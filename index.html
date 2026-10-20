@@ -66,7 +66,7 @@
             <span class="card-meta">2025.12—2026.2</span>
             <span class="card-body">
               <span class="card-title">智能文档推荐</span>
-              <span class="card-copy">给景嘉微做的后端。在 WPS 里按正在写的内容，推荐可以插入的相似片段。</span>
+              <span class="card-copy">接入 WPS，按当前内容推荐历史相似片段，表格、公式和图片可直接插入。</span>
             </span>
           </button>
           <button type="button" class="card" data-open="live" aria-controls="detail-live">
@@ -97,10 +97,10 @@
         <button type="button" class="back" data-close>返回介绍</button>
         <p class="eyebrow">博槐（北京） · 景嘉微</p>
         <h2>智能文档推荐</h2>
-        <p class="lead">2025 年 12 月至 2026 年 2 月。后端用 React。文档拆分后，原文放 MongoDB，向量放 PostgreSQL。</p>
+        <p class="lead">2025 年 12 月至 2026 年 2 月。后端使用 React。文档拆分后，原文存入 MongoDB，向量存入 PostgreSQL。</p>
         <ul>
-          <li>按用户正在写的内容做推荐。在 WPS 里编辑时，相似片段可以直接插入或复制，表格、公式和图片一起带上。</li>
-          <li>复杂公式一开始还原不全。后来走 WPS 底层取出公式原结构，插入时按原样放回。</li>
+          <li>接入 WPS，依据当前编辑内容检索历史相似片段，支持插入或复制，并保留表格、图片与复杂公式。</li>
+          <li>复杂公式最初无法完整还原。后改为通过 WPS 底层接口读取公式的原始结构，插入时按该结构写回。</li>
         </ul>
         <p class="stack">React · MongoDB · PostgreSQL 向量</p>
       </article>
