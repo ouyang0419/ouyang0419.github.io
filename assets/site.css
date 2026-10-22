@@ -10,7 +10,7 @@
 }
 
 * { box-sizing: border-box; }
-html, body { height: 100%; }
+html, body { min-height: 100%; }
 body {
   margin: 0;
   background: #07060c;
@@ -47,28 +47,33 @@ body {
   z-index: 1;
   pointer-events: none;
   background:
-    linear-gradient(180deg, rgba(7, 6, 12, 0.28), rgba(7, 6, 12, 0.08) 28%, rgba(7, 6, 12, 0.42));
+    radial-gradient(ellipse 62% 52% at 50% 48%, rgba(7, 6, 12, 0.78), rgba(7, 6, 12, 0.34) 58%, rgba(7, 6, 12, 0.12));
 }
 
 .desk {
   position: relative;
   z-index: 2;
   min-height: 100dvh;
-  padding: 28px 40px 32px;
+  padding: 28px 48px 40px;
 }
 
 .stage {
-  width: min(1080px, 100%);
+  width: min(920px, 100%);
+  min-height: calc(100dvh - 68px);
   margin: 0 auto;
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .face {
-  min-height: calc(100dvh - 60px);
-  display: grid;
-  grid-template-rows: auto minmax(120px, 1fr) auto auto;
-  gap: 28px;
+  width: 100%;
   transition: opacity 0.35s ease;
+}
+.hello-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
 }
 .desk.is-open .face {
   opacity: 0;
@@ -76,12 +81,9 @@ body {
 }
 
 .bar,
-.base,
 .contact,
-.skills,
 .door-kicker,
 .mark,
-.now,
 .gh,
 .eyebrow,
 .stack {
@@ -89,34 +91,33 @@ body {
 }
 
 .bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
   display: flex;
   align-items: center;
-  gap: 22px;
   margin: 0;
 }
 .mark,
-.now,
 .gh {
   margin: 0;
   color: var(--quiet);
   font-size: 12px;
   letter-spacing: 0.08em;
-  text-transform: none;
-}
-.now {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--mist);
-}
-.gh {
-  margin-left: auto;
-  color: var(--mist);
   text-decoration: none;
 }
+.mark {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+}
+.mark:hover,
 .gh:hover { color: var(--ink); }
-
-.hello { align-self: end; }
+.gh { margin-left: auto; color: var(--mist); }
 h1, h2 {
   margin: 0;
   font-family: "Noto Serif SC", "Songti SC", "SimSun", serif;
@@ -131,60 +132,46 @@ h2 {
   letter-spacing: 0.04em;
 }
 .thesis {
-  max-width: 36em;
-  margin: 18px 0 0;
+  margin: 20px 0 0;
   color: var(--mist);
   font-size: 18px;
-  line-height: 1.7;
+  line-height: 1.6;
 }
 
 .doors {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 56px;
 }
 .door {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 14px;
-  min-height: 168px;
-  padding: 18px 18px 16px;
-  border: 1px solid var(--line);
-  border-radius: 0;
-  background: var(--glass);
-  backdrop-filter: blur(16px);
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  background: transparent;
   color: inherit;
   font: inherit;
   text-align: left;
   cursor: pointer;
-  transition: border-color 0.3s var(--ease), background 0.3s var(--ease), transform 0.3s var(--ease);
 }
-.door:hover,
-.door[aria-pressed="true"] {
-  border-color: rgba(201, 176, 255, 0.72);
-  background: rgba(18, 12, 28, 0.62);
-  transform: translateY(-3px);
-}
+.door:hover .door-title,
+.door[aria-pressed="true"] .door-title { color: var(--shard); }
 .door-kicker {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   color: var(--quiet);
-  font-size: 11px;
-  letter-spacing: 0.06em;
+  font-size: 12px;
+  letter-spacing: 0.04em;
 }
 .door-title {
   font-family: "Noto Serif SC", "Songti SC", "SimSun", serif;
-  font-size: 28px;
+  font-size: 26px;
   letter-spacing: 0.04em;
-  line-height: 1.15;
-}
-.door-line {
-  margin-top: auto;
-  color: var(--mist);
-  font-size: 13px;
-  line-height: 1.65;
+  line-height: 1.2;
+  transition: color 0.3s var(--ease);
 }
 .lamp {
   width: 7px;
@@ -194,20 +181,12 @@ h2 {
   box-shadow: 0 0 8px var(--shard);
 }
 
-.base {
-  display: grid;
-  gap: 6px;
-  margin: 0;
-  color: var(--quiet);
-  font-size: 12px;
-  line-height: 1.7;
-}
-.base p { margin: 0; }
-.skills { color: var(--mist); }
 .contact {
   display: flex;
   flex-wrap: wrap;
   gap: 8px 18px;
+  margin: 22px 0 0;
+  font-size: 13px;
 }
 .contact a {
   color: var(--quiet);
@@ -300,32 +279,22 @@ h2 {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: none; }
 }
-.hello { animation: rise 0.7s var(--ease) both; }
-.door { animation: rise 0.75s var(--ease) both; }
-.door:nth-child(2) { animation-delay: 0.08s; }
-.door:nth-child(3) { animation-delay: 0.16s; }
+.hello-wrap { animation: rise 0.7s var(--ease) both; }
 
 @media (max-width: 800px) {
-  .desk { padding: 22px 18px 28px; }
-  .face {
-    min-height: auto;
-    grid-template-rows: auto auto auto auto;
-    gap: 22px;
-  }
-  .hello { align-self: start; margin-top: 18px; }
-  .doors { grid-template-columns: 1fr; }
-  .door { min-height: 0; }
-  h1 { font-size: 52px; }
-  .bar { flex-wrap: wrap; gap: 10px 16px; }
-  .gh { margin-left: 0; }
-  .detail { position: relative; padding: 0; }
+  .desk { padding: 22px 20px 28px; }
+  .bar { left: 0; right: 0; top: 0; }
+  .stage { min-height: calc(100dvh - 50px); }
+  .hello-wrap { gap: 40px; }
+  .doors { flex-direction: column; gap: 22px; }
+  h1 { font-size: 48px; }
+  .detail { position: relative; padding: 0; background: none; }
   .detail[hidden] { display: none; }
   .detail.is-on { display: block; }
   .desk.is-open .face { display: none; }
+  .desk.is-open .stage { align-items: flex-start; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .face, .detail, .door, .hello { animation: none; transition: none; }
-  .door:hover,
-  .door[aria-pressed="true"] { transform: none; }
+  .face, .detail, .hello-wrap { animation: none; transition: none; }
 }

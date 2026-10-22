@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#07060c" />
   <link rel="preconnect" href="https://fonts.loli.net" />
   <link rel="stylesheet" href="https://fonts.loli.net/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+SC:wght@500&display=swap" />
-  <link rel="stylesheet" href="assets/site.css?v=4" />
+  <link rel="stylesheet" href="assets/site.css?v=5" />
 </head>
 <body>
   <div id="field" class="field" aria-hidden="true"></div>
@@ -17,45 +17,51 @@
     <div class="stage">
       <div class="face">
         <header class="bar">
-          <p class="mark">Python / 全栈</p>
-          <p class="now"><i class="lamp"></i>现在 · 云朵售后</p>
+          <button type="button" class="mark" data-open="about" aria-controls="detail-about">关于</button>
           <a class="gh" href="https://github.com/ouyang0419" target="_blank" rel="noreferrer">GitHub</a>
         </header>
 
-        <section class="hello">
-          <h1>欧阳文辉</h1>
-          <p class="thesis">正在独立开发多平台售后系统。<br />从接口还原到部署发布，都由我完成。</p>
-        </section>
+        <div class="hello-wrap">
+          <section class="hello">
+            <h1>欧阳文辉</h1>
+            <p class="thesis">正在独立开发多平台售后系统。</p>
+          </section>
 
-        <nav class="doors" aria-label="做过的项目">
-          <button type="button" class="door" data-open="yunduo" aria-controls="detail">
-            <span class="door-kicker"><i class="lamp"></i>进行中</span>
-            <span class="door-title">云朵售后</span>
-            <span class="door-line">独立完成从开发到发布。各平台接口经逆向接入。</span>
-          </button>
-          <button type="button" class="door" data-open="doc" aria-controls="detail-doc">
-            <span class="door-kicker">2025.12—2026.2</span>
-            <span class="door-title">智能文档推荐</span>
-            <span class="door-line">接入 WPS，按当前内容推荐可插入的历史片段。</span>
-          </button>
-          <button type="button" class="door" data-open="live" aria-controls="detail-live">
-            <span class="door-kicker">湖南博皓</span>
-            <span class="door-title">数字人直播后端</span>
-            <span class="door-line">用 FastAPI 做直播间接口，按直播时长扣金币。</span>
-          </button>
-        </nav>
-
-        <footer class="base">
-          <p>博槐（北京）2025.12—2026.2 · 湖南博皓 · 湖南交通职业技术学院 · 人工智能技术与应用</p>
-          <p>楚怡杯技能竞赛二等奖 · 华为云 AI 证书</p>
-          <p class="skills">Python · FastAPI · Vue 3 · React · Electron · TypeScript · PostgreSQL · MongoDB · 爬虫逆向 · 服务器运维</p>
-          <p class="contact">
-            <a href="tel:19065145245">190 6514 5245</a>
-            <a href="mailto:3170387400@qq.com">3170387400@qq.com</a>
-            <a href="mailto:19065145245@163.com">19065145245@163.com</a>
-          </p>
-        </footer>
+          <nav class="doors" aria-label="做过的项目">
+            <button type="button" class="door" data-open="yunduo" aria-controls="detail">
+              <span class="door-title">云朵售后</span>
+              <span class="door-kicker"><i class="lamp"></i>进行中</span>
+            </button>
+            <button type="button" class="door" data-open="doc" aria-controls="detail-doc">
+              <span class="door-title">智能文档推荐</span>
+              <span class="door-kicker">2025.12—2026.2</span>
+            </button>
+            <button type="button" class="door" data-open="live" aria-controls="detail-live">
+              <span class="door-title">数字人直播后端</span>
+              <span class="door-kicker">湖南博皓</span>
+            </button>
+          </nav>
+        </div>
       </div>
+
+      <article class="detail" id="detail-about" data-project="about" hidden>
+        <button type="button" class="back" data-close>返回</button>
+        <p class="eyebrow">关于</p>
+        <h2>欧阳文辉</h2>
+        <p class="lead">Python / 全栈。从接口还原到部署发布，都由我完成。</p>
+        <ul>
+          <li>博槐（北京）互联网科技有限责任公司 · 2025 年 12 月—2026 年 2 月</li>
+          <li>湖南博皓数字品牌运营管理有限公司 · Python 开发工程师</li>
+          <li>湖南交通职业技术学院 · 人工智能技术与应用</li>
+          <li>湖南省楚怡杯技能竞赛二等奖 · 华为云 AI 证书</li>
+        </ul>
+        <p class="stack">Python · FastAPI · Vue 3 · React · Electron · TypeScript · PostgreSQL · MongoDB · 爬虫逆向 · 服务器运维</p>
+        <p class="contact">
+          <a href="tel:19065145245">190 6514 5245</a>
+          <a href="mailto:3170387400@qq.com">3170387400@qq.com</a>
+          <a href="mailto:19065145245@163.com">19065145245@163.com</a>
+        </p>
+      </article>
 
       <article class="detail" id="detail" data-project="yunduo" hidden>
         <button type="button" class="back" data-close>返回</button>
