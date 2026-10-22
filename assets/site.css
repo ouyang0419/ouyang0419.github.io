@@ -13,7 +13,7 @@
 html, body { min-height: 100%; }
 body {
   margin: 0;
-  background: #101410;
+  background: #4a4d44;
   color: var(--ink);
   font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
   letter-spacing: 0;
@@ -24,8 +24,16 @@ body {
   inset: 0;
   z-index: 0;
   overflow: hidden;
-  pointer-events: none;
-  background: #101410;
+  pointer-events: auto;
+  background: #4a4d44;
+}
+.field iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #4a4d44;
 }
 .field canvas {
   position: absolute;
@@ -55,6 +63,7 @@ body {
   z-index: 2;
   min-height: 100dvh;
   padding: 28px 64px 72px;
+  pointer-events: none;
   transition: opacity 0.45s var(--ease), transform 0.55s var(--ease), filter 0.45s ease;
 }
 .desk.is-leave {
@@ -70,9 +79,12 @@ body {
 .desk.is-enter .hello-wrap,
 .desk.is-enter .sheet-body,
 .desk.is-enter .case-title,
-.desk.is-enter .case-copy {
+.desk.is-enter .case-copy,
+.desk.is-enter .sky,
+.desk.is-enter .bud {
   animation: arrive 0.8s var(--ease) both;
 }
+.desk.is-enter .bud { animation-delay: calc(var(--i) * 70ms); }
 .desk.is-enter .case-copy { animation-delay: 0.16s; }
 
 .stage {
@@ -458,8 +470,120 @@ h1 span:nth-child(3) { margin-left: 1.35em; }
 .case .piece { margin-top: 0; max-width: 28rem; }
 .case .lead { margin-top: 0; }
 .veil.is-case {
-  background: linear-gradient(90deg, rgba(13, 17, 15, 0.9) 0%, rgba(13, 17, 15, 0.45) 32%, rgba(13, 17, 15, 0.12) 44%, rgba(13, 17, 15, 0.94) 56%, rgba(13, 17, 15, 0.97) 100%);
+  background: linear-gradient(90deg, rgba(28, 32, 26, 0.72) 0%, rgba(28, 32, 26, 0.28) 30%, rgba(28, 32, 26, 0.05) 46%, rgba(28, 32, 26, 0.55) 68%, rgba(28, 32, 26, 0.72) 100%);
 }
+.veil.is-limb {
+  background: linear-gradient(180deg, rgba(28, 32, 26, 0.42) 0%, rgba(28, 32, 26, 0) 22%);
+}
+.desk a,
+.desk button,
+.detail,
+.detail a {
+  pointer-events: auto;
+}
+.limb-page .stage { align-items: flex-start; }
+.limb-page .hello { margin-top: 9vh; gap: 16px; }
+.limb-page h1 { font-size: clamp(36px, 4.2vw, 58px); }
+.limb-page h1 span:nth-child(2),
+.limb-page h1 span:nth-child(3) { margin-left: 0; }
+.limb-page .hello::before { display: none; }
+.sky { margin-top: 12vh; max-width: 18em; }
+.limb-caption {
+  margin: 14px 0 0;
+  max-width: 16em;
+  color: var(--quiet);
+  font-family: "IBM Plex Mono", "PingFang SC", monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  line-height: 1.75;
+}
+.limb {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  pointer-events: none;
+}
+.bud {
+  position: fixed;
+  z-index: 3;
+  width: 0;
+  height: 0;
+  color: inherit;
+  text-decoration: none;
+  pointer-events: auto;
+}
+.bud-pin {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: #d7e6c4;
+  box-shadow: 0 0 0 6px rgba(126, 168, 112, 0.28), 0 0 18px rgba(214, 224, 180, 0.45);
+  transition: transform 0.35s var(--ease), background 0.35s ease;
+}
+.bud-name,
+.bud-note {
+  position: absolute;
+  left: 18px;
+  white-space: nowrap;
+}
+.bud-name {
+  top: -22px;
+  color: var(--ink);
+  font-family: "Noto Serif SC", "Songti SC", "SimSun", serif;
+  font-size: 16px;
+  letter-spacing: 0.06em;
+  text-shadow: 0 2px 12px rgba(8, 12, 9, 0.95);
+}
+.bud[data-side="down"] .bud-name { top: 10px; }
+.bud[data-edge="end"] .bud-name,
+.bud[data-edge="end"] .bud-note { left: auto; right: 18px; text-align: right; }
+.bud-note {
+  top: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 9em;
+  padding: 10px 12px 11px;
+  border: 1px solid rgba(198, 224, 180, 0.35);
+  border-radius: 12px;
+  background: rgba(12, 18, 14, 0.82);
+  color: var(--mist);
+  font-size: 13px;
+  line-height: 1.45;
+  white-space: normal;
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.bud[data-side="down"] .bud-note { top: 34px; }
+.bud[data-edge="end"] .bud-note { align-items: flex-end; }
+.bud-kicker {
+  color: var(--shard);
+  font-family: "IBM Plex Mono", "PingFang SC", monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+.bud:hover .bud-pin,
+.bud:focus-visible .bud-pin {
+  transform: translate(-50%, -50%) scale(1.35);
+  background: #f4f7ef;
+}
+.bud:hover .bud-name,
+.bud:focus-visible .bud-name { color: var(--shard); }
+.bud:hover .bud-note,
+.bud:focus-visible .bud-note {
+  opacity: 1;
+  transform: none;
+}
+.bud:focus-visible .bud-pin { outline: 1px solid var(--ink); outline-offset: 4px; }
 
 @media (max-width: 800px) {
   .desk { padding: 22px 20px 28px; }
@@ -479,6 +603,16 @@ h1 span:nth-child(3) { margin-left: 1.35em; }
   .veil.is-case {
     background: linear-gradient(180deg, rgba(13, 17, 15, 0.94), rgba(13, 17, 15, 0.86));
   }
+  .veil.is-limb {
+    background: linear-gradient(180deg, rgba(13, 17, 15, 0.72) 0%, rgba(13, 17, 15, 0.2) 24%, rgba(13, 17, 15, 0.08) 70%);
+  }
+  .limb-page .hello { margin-top: 18px; }
+  .limb-page h1 { font-size: 34px; }
+  .limb-page h1 span:nth-child(2),
+  .limb-page h1 span:nth-child(3) { margin-left: 0; }
+  .sky { margin-top: 28px; }
+  .bud-name { font-size: 14px; }
+  .bud-note { display: none; }
   .stage { min-height: calc(100dvh - 50px); }
   .hello { flex-direction: column; align-items: flex-start; gap: 12px; }
   .thesis {

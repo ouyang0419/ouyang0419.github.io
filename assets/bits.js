@@ -349,7 +349,11 @@
     var sheet = document.querySelector(".sheet")
     var open = desk && desk.classList.contains("is-open")
     var mask = "none"
-    if (!open && document.querySelector(".case")) {
+    if (field.querySelector("iframe")) {
+      mask = "none"
+    } else if (!open && desk && desk.classList.contains("limb-page")) {
+      mask = "none"
+    } else if (!open && document.querySelector(".case")) {
       mask = window.innerWidth > 800
         ? "linear-gradient(90deg, transparent 0%, transparent 20%, #000 32%, #000 44%, transparent 54%, transparent 100%)"
         : "linear-gradient(180deg, transparent 0%, transparent 92%, #000 100%)"

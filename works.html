@@ -8,61 +8,33 @@
   <meta name="theme-color" content="#101410" />
   <link rel="preconnect" href="https://fonts.loli.net" />
   <link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fraunces:ital,opsz,wght@1,9..144,500&family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+SC:wght@500&display=swap" />
-  <link rel="stylesheet" href="assets/site.css?v=17" />
+  <link rel="stylesheet" href="assets/site.css?v=20" />
 </head>
 <body>
   <div id="field" class="field" aria-hidden="true"></div>
   <div id="sparks" class="sparks" aria-hidden="true"></div>
-  <div class="veil is-sheet" aria-hidden="true"></div>
-  <main class="desk sheet" id="desk">
+  <div class="veil is-limb" aria-hidden="true"></div>
+  <main class="desk limb-page" id="desk">
     <header class="bar">
       <a class="back" href="index.html">首页</a>
       <a class="gh" href="https://github.com/ouyang0419" target="_blank" rel="noreferrer">GitHub</a>
     </header>
-
-    <div class="sheet-body">
-      <p class="eyebrow">Works</p>
-      <h1><span>作品</span></h1>
-
-      <p class="sheet-label">工作经历</p>
-      <nav class="catalog" aria-label="工作经历">
-        <a class="entry" href="works/yunduo.html">
-          <span class="entry-title">云朵售后</span>
-          <span class="when">湖南云客通科技有限公司 · 2026.5 — 至今</span>
-        </a>
-        <a class="entry" href="works/doc.html">
-          <span class="entry-title">智能文档推荐</span>
-          <span class="when">博槐（北京）互联网科技有限责任公司 · 2026.1 — 2026.4</span>
-        </a>
-        <a class="entry" href="works/live.html">
-          <span class="entry-title">数字人直播后端</span>
-          <span class="when">湖南博皓数字品牌运营管理有限公司 · 2025.3 — 2025.11</span>
-        </a>
-      </nav>
-
-      <p class="sheet-label">GitHub</p>
-      <nav class="catalog" aria-label="GitHub 项目">
-        <a class="entry" href="works/jizhangben.html">
-          <span class="entry-title">记账本</span>
-          <span class="when">jizhangben</span>
-        </a>
-        <a class="entry" href="works/duanxian.html">
-          <span class="entry-title">短线名单</span>
-          <span class="when">duanxian</span>
-        </a>
-        <a class="entry" href="works/langchain.html">
-          <span class="entry-title">LangChain 学习</span>
-          <span class="when">langchain_study</span>
-        </a>
-        <a class="entry" href="works/site.html">
-          <span class="entry-title">个人网站</span>
-          <span class="when">ouyang0419.github.io</span>
-        </a>
-      </nav>
+    <div class="sky">
+      <p class="eyebrow">作品</p>
+      <p class="limb-caption">从左到右，是从早到近。点一颗芽，打开那一页。</p>
     </div>
+    <ol class="limb">
+      <li><a class="bud" style="--i:0" data-fx="0.12" data-fy="0.58" data-side="up" href="works/live.html"><span class="bud-pin"></span><span class="bud-name">数字人直播后端</span><span class="bud-note"><span class="bud-kicker">2025.3 — 2025.11</span><span>湖南博皓。FastAPI 接口。</span></span></a></li>
+      <li><a class="bud" style="--i:1" data-fx="0.30" data-fy="0.40" data-side="up" href="works/langchain.html"><span class="bud-pin"></span><span class="bud-name">LangChain 学习</span><span class="bud-note"><span class="bud-kicker">2025.9</span><span>个人学习，不是产品。</span></span></a></li>
+      <li><a class="bud" style="--i:2" data-fx="0.46" data-fy="0.52" data-side="up" href="works/doc.html"><span class="bud-pin"></span><span class="bud-name">智能文档推荐</span><span class="bud-note"><span class="bud-kicker">2026.1 — 2026.4</span><span>博槐（北京）。景嘉微文档推荐。</span></span></a></li>
+      <li><a class="bud" style="--i:3" data-fx="0.66" data-fy="0.40" data-side="up" href="works/yunduo.html"><span class="bud-pin"></span><span class="bud-name">云朵售后</span><span class="bud-note"><span class="bud-kicker">2026.5 — 至今</span><span>湖南云客通。独立完成的多平台售后。</span></span></a></li>
+      <li><a class="bud" style="--i:4" data-fx="0.73" data-fy="0.30" data-side="up" href="works/site.html"><span class="bud-pin"></span><span class="bud-name">个人网站</span><span class="bud-note"><span class="bud-kicker">2026.10</span><span>现在看的这一页。</span></span></a></li>
+      <li><a class="bud" style="--i:5" data-fx="0.88" data-fy="0.58" data-side="up" href="works/duanxian.html"><span class="bud-pin"></span><span class="bud-name">短线名单</span><span class="bud-note"><span class="bud-kicker">2026.10</span><span>普通账户，沪深主板。</span></span></a></li>
+      <li><a class="bud" style="--i:6" data-fx="0.84" data-fy="0.24" data-side="up" href="works/jizhangben.html"><span class="bud-pin"></span><span class="bud-name">记账本</span><span class="bud-note"><span class="bud-kicker">2026.10</span><span>账单留在手机上。</span></span></a></li>
+    </ol>
   </main>
-  <script src="assets/grove.js?v=2"></script>
-  <script src="assets/bits.js?v=9"></script>
+  <script src="assets/grove.js?v=4"></script>
+  <script src="assets/bits.js?v=11"></script>
   <script src="assets/desk.js?v=5"></script>
   <script src="assets/route.js?v=1"></script>
 </body>
