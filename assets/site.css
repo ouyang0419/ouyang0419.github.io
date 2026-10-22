@@ -545,19 +545,20 @@ h1 span:nth-child(3) { margin-left: 1.35em; }
 .bud[data-edge="end"] .bud-name,
 .bud[data-edge="end"] .bud-note { left: auto; right: 18px; text-align: right; }
 .bud-note {
-  top: 2px;
+  top: 6px;
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  min-width: 9em;
-  padding: 10px 12px 11px;
+  align-items: flex-start;
+  gap: 4px;
+  width: max-content;
+  padding: 12px 16px 13px;
   border: 1px solid rgba(198, 224, 180, 0.35);
   border-radius: 12px;
   background: rgba(12, 18, 14, 0.82);
   color: var(--mist);
   font-size: 13px;
   line-height: 1.45;
-  white-space: normal;
+  white-space: nowrap;
   opacity: 0;
   transform: translateY(8px);
   pointer-events: none;
@@ -565,11 +566,15 @@ h1 span:nth-child(3) { margin-left: 1.35em; }
 }
 .bud[data-side="down"] .bud-note { top: 34px; }
 .bud[data-edge="end"] .bud-note { align-items: flex-end; }
+.bud-kicker,
+.bud-note > span {
+  white-space: nowrap;
+}
 .bud-kicker {
   color: var(--shard);
   font-family: "IBM Plex Mono", "PingFang SC", monospace;
-  font-size: 11px;
-  letter-spacing: 0.08em;
+  font-size: 12px;
+  letter-spacing: 0.04em;
 }
 .bud:hover .bud-pin,
 .bud:focus-visible .bud-pin {
