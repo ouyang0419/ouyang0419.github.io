@@ -20,13 +20,24 @@ body {
 
 .field {
   position: fixed;
-  left: -6%;
-  top: -6%;
-  width: 112%;
-  height: 112%;
+  inset: 0;
   z-index: 0;
-  display: block;
+  overflow: hidden;
   pointer-events: none;
+  background: #05030a;
+}
+.field canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.field.is-fallback {
+  background:
+    radial-gradient(ellipse at 28% 18%, rgba(168, 85, 247, 0.38), transparent 46%),
+    radial-gradient(ellipse at 72% 82%, rgba(88, 28, 135, 0.42), transparent 52%),
+    #05030a;
 }
 
 .veil {
@@ -34,7 +45,7 @@ body {
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: radial-gradient(ellipse 62% 68% at 50% 46%, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.5) 52%, rgba(0, 0, 0, 0.12) 100%);
+  background: radial-gradient(ellipse 70% 76% at 36% 44%, rgba(0, 0, 0, 0.46) 0%, rgba(0, 0, 0, 0.18) 48%, rgba(0, 0, 0, 0) 100%);
 }
 
 .desk {
