@@ -158,7 +158,15 @@
     }
   }
 
-  document.querySelectorAll(".door, .mark, .gh, .back, .to-works, .entry").forEach(magnetize)
+  function mountMagnets() {
+    registry = registry.filter(function (item) { return item.wrapper.isConnected })
+    document.querySelectorAll(".door, .mark, .gh, .back, .to-works, .entry").forEach(function (el) {
+      if (el.closest(".magnet")) return
+      magnetize(el)
+    })
+  }
+
+  mountMagnets()
 
   var sparks = document.getElementById("sparks")
   if (sparks && !reduce) {
@@ -285,7 +293,9 @@
     return "rgba(" + channel(from[0], to[0]) + "," + channel(from[1], to[1]) + "," + channel(from[2], to[2]) + ",1)"
   }
 
+  function mountShine() {
   document.querySelectorAll("h1 span").forEach(function (node) {
+    if (node.classList.contains("shiny-text")) return
     node.classList.add("shiny-text")
     if (reduce) {
       node.style.backgroundImage = "linear-gradient(#f6f3ee, #f6f3ee)"
@@ -315,6 +325,7 @@
 
     function sweep(start) {
       function tick(now) {
+        if (!node.isConnected) return
         var t = Math.min(1, Math.max(0, (now - start) / duration))
         var eased = 0.5 - Math.cos(Math.PI * t) / 2
         draw(from + (to - from) * eased)
@@ -326,6 +337,9 @@
     draw(from)
     window.setTimeout(function () { sweep(performance.now()) }, 200 + Math.random() * 500)
   })
+  }
+
+  mountShine()
 
   function placeHole() {
     var field = document.getElementById("field")
@@ -335,7 +349,11 @@
     var sheet = document.querySelector(".sheet")
     var open = desk && desk.classList.contains("is-open")
     var mask = "none"
-    if (!open && sheet) {
+    if (!open && document.querySelector(".case")) {
+      mask = window.innerWidth > 800
+        ? "linear-gradient(90deg, transparent 0%, transparent 34%, #000 46%, #000 58%, transparent 72%, transparent 100%)"
+        : "linear-gradient(180deg, transparent 0%, transparent 92%, #000 100%)"
+    } else if (!open && sheet) {
       mask = window.innerWidth > 800
         ? "linear-gradient(90deg, transparent 0%, transparent 36%, #000 64%)"
         : "linear-gradient(180deg, transparent 0%, transparent 92%, #000 100%)"
@@ -353,6 +371,14 @@
     if (canvas) {
       canvas.style.webkitMaskImage = mask
       canvas.style.maskImage = mask
+    }
+  }
+
+  window.SiteBits = {
+    refresh: function () {
+      mountMagnets()
+      mountShine()
+      placeHole()
     }
   }
 
