@@ -123,7 +123,8 @@ body {
 }
 .mark:hover,
 .gh:hover { color: var(--ink); }
-.gh { margin-left: auto; color: var(--mist); }
+.gh { color: var(--mist); }
+.bar .magnet:last-child { margin-left: auto; }
 h1, h2 { margin: 0; }
 h2 {
   margin-top: 10px;
@@ -162,8 +163,31 @@ h1 span:nth-child(3) { margin-left: 1.35em; }
   gap: 4px;
   margin-left: 4.8em;
 }
-.door:nth-child(2) { margin-left: 1.6em; }
-.door:nth-child(3) { margin-left: 3.6em; }
+.doors > :nth-child(2) { margin-left: 1.6em; }
+.doors > :nth-child(3) { margin-left: 3.6em; }
+.magnet {
+  display: inline-flex;
+  width: max-content;
+  max-width: 100%;
+}
+.magnet-inner { display: inline-flex; will-change: transform; }
+.bar .magnet { align-self: center; }
+.sparks {
+  position: fixed;
+  inset: 0;
+  z-index: 6;
+  overflow: visible;
+  pointer-events: none;
+}
+.shiny-text {
+  display: inline-block;
+  align-self: flex-start;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
 .door {
   display: flex;
   flex-direction: row;
@@ -315,8 +339,8 @@ h1 span:nth-child(3) { margin-left: 1.35em; }
   }
   .hello-wrap { gap: 28px; }
   .doors { margin-left: 0.4em; gap: 10px; }
-  .door:nth-child(2) { margin-left: 1em; }
-  .door:nth-child(3) { margin-left: 2em; }
+  .doors > :nth-child(2) { margin-left: 1em; }
+  .doors > :nth-child(3) { margin-left: 2em; }
   h1 { font-size: 42px; }
   h1 span:nth-child(2) { margin-left: 0.2em; }
   h1 span:nth-child(3) { margin-left: 0.7em; }
