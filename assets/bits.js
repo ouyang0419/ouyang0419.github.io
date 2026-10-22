@@ -158,7 +158,7 @@
     }
   }
 
-  document.querySelectorAll(".door, .mark, .gh, .back").forEach(magnetize)
+  document.querySelectorAll(".door, .mark, .gh, .back, .to-works").forEach(magnetize)
 
   var sparks = document.getElementById("sparks")
   if (sparks && !reduce) {
@@ -331,10 +331,15 @@
     var field = document.getElementById("field")
     var desk = document.getElementById("desk")
     var hello = document.querySelector(".hello")
-    if (!field || !hello) return
+    if (!field) return
+    var sheet = document.querySelector(".sheet")
     var open = desk && desk.classList.contains("is-open")
     var mask = "none"
-    if (!open) {
+    if (!open && sheet) {
+      mask = window.innerWidth > 800
+        ? "linear-gradient(90deg, transparent 0%, transparent 36%, #000 64%)"
+        : "linear-gradient(180deg, transparent 0%, transparent 92%, #000 100%)"
+    } else if (!open && hello) {
       var rect = hello.getBoundingClientRect()
       var cx = ((rect.left + rect.width / 2) / window.innerWidth) * 100
       var cy = ((rect.top + rect.height / 2) / window.innerHeight) * 100

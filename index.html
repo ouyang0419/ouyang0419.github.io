@@ -4,11 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Welcome</title>
-  <meta name="description" content="欧阳文辉，Python / 全栈。正在做云朵售后，做过智能文档推荐和数字人直播后端。" />
+  <meta name="description" content="欧阳文辉，Python / 全栈。作品与工作经历。" />
   <meta name="theme-color" content="#07060c" />
   <link rel="preconnect" href="https://fonts.loli.net" />
   <link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fraunces:ital,opsz,wght@1,9..144,500&family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+SC:wght@500&display=swap" />
-  <link rel="stylesheet" href="assets/site.css?v=11" />
+  <link rel="stylesheet" href="assets/site.css?v=12" />
 </head>
 <body>
   <div id="field" class="field" aria-hidden="true"></div>
@@ -19,29 +19,15 @@
       <div class="face">
         <header class="bar">
           <button type="button" class="mark" data-open="about" aria-controls="detail-about">关于</button>
+          <a class="mark" href="works.html">作品</a>
           <a class="gh" href="https://github.com/ouyang0419" target="_blank" rel="noreferrer">GitHub</a>
         </header>
 
         <div class="hello-wrap">
           <section class="hello">
-            <p class="thesis">正在独立开发多平台售后系统。</p>
             <h1><span>Welcome to</span><span>my personal</span><span>website.</span></h1>
+            <a class="to-works" href="works.html">作品</a>
           </section>
-
-          <nav class="doors" aria-label="做过的项目">
-            <button type="button" class="door" data-open="yunduo" aria-controls="detail">
-              <span class="door-title">云朵售后</span>
-              <span class="door-kicker"><i class="lamp"></i>进行中</span>
-            </button>
-            <button type="button" class="door" data-open="doc" aria-controls="detail-doc">
-              <span class="door-title">智能文档推荐</span>
-              <span class="door-kicker">2025.12—2026.2</span>
-            </button>
-            <button type="button" class="door" data-open="live" aria-controls="detail-live">
-              <span class="door-title">数字人直播后端</span>
-              <span class="door-kicker">湖南博皓</span>
-            </button>
-          </nav>
         </div>
       </div>
 
@@ -51,8 +37,9 @@
         <h2>欧阳文辉</h2>
         <p class="lead">Python / 全栈。从接口还原到部署发布，都由我完成。</p>
         <ul>
-          <li>博槐（北京）互联网科技有限责任公司 · 2025 年 12 月—2026 年 2 月</li>
-          <li>湖南博皓数字品牌运营管理有限公司 · Python 开发工程师</li>
+          <li>湖南云客通科技有限公司 · 2026 年 5 月至今</li>
+          <li>博槐（北京）互联网科技有限责任公司 · 2026 年 1 月—2026 年 4 月</li>
+          <li>湖南博皓数字品牌运营管理有限公司 · 2025 年 3 月—2025 年 11 月</li>
           <li>湖南交通职业技术学院 · 人工智能技术与应用</li>
           <li>湖南省楚怡杯技能竞赛二等奖 · 华为云 AI 证书</li>
         </ul>
@@ -64,48 +51,10 @@
         </p>
       </article>
 
-      <article class="detail" id="detail" data-project="yunduo" hidden>
-        <button type="button" class="back" data-close>返回</button>
-        <p class="eyebrow">进行中</p>
-        <h2>云朵售后</h2>
-        <p class="lead">独立完成的多平台售后桌面系统，覆盖开发、运维、部署与发布。</p>
-        <ul>
-          <li>接入拼多多、抖店、快手、淘宝、微信小店与京东。各平台接口通过逆向接入，请求中的加密参数与签名算法由本人还原。</li>
-          <li>将工单提交、货款与运费申诉、差评处理、物流拦截催收、发票及售后关怀整理为可每日执行的流程。</li>
-          <li>界面使用 Vue 3，客户端使用 Electron，业务与模型调用由自有后端承担。</li>
-          <li>模型负责判断工单选项与申诉理由，提交仍回到既有业务流程。</li>
-        </ul>
-        <p class="stack">Electron · Vue 3 · TypeScript · Node.js</p>
-      </article>
-
-      <article class="detail" id="detail-doc" data-project="doc" hidden>
-        <button type="button" class="back" data-close>返回</button>
-        <p class="eyebrow">博槐（北京） · 景嘉微</p>
-        <h2>智能文档推荐</h2>
-        <p class="lead">2025 年 12 月至 2026 年 2 月。后端使用 React。文档拆分后，原文存入 MongoDB，向量存入 PostgreSQL。</p>
-        <ul>
-          <li>接入 WPS，依据当前编辑内容检索历史相似片段，支持插入或复制，并保留表格、图片与复杂公式。</li>
-          <li>复杂公式最初无法完整还原。后改为通过 WPS 底层接口读取公式的原始结构，插入时按该结构写回。</li>
-        </ul>
-        <p class="stack">React · MongoDB · PostgreSQL 向量</p>
-      </article>
-
-      <article class="detail" id="detail-live" data-project="live" hidden>
-        <button type="button" class="back" data-close>返回</button>
-        <p class="eyebrow">湖南博皓</p>
-        <h2>数字人直播后端</h2>
-        <p class="lead">直播系统的后端接口和业务逻辑，用 FastAPI。</p>
-        <ul>
-          <li>直播间按多步流程创建，可以落成模板直播间。</li>
-          <li>用 WebSocket 按直播时长扣金币。</li>
-          <li>同一套接口里还有其他业务逻辑。</li>
-        </ul>
-        <p class="stack">Python · FastAPI · WebSocket</p>
-      </article>
     </div>
   </main>
   <script src="assets/aero-shards.js?v=1"></script>
-  <script src="assets/bits.js?v=3"></script>
+  <script src="assets/bits.js?v=4"></script>
   <script src="assets/desk.js?v=3"></script>
 </body>
 </html>

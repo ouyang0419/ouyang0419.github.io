@@ -80,8 +80,9 @@ body {
   position: relative;
   isolation: isolate;
   display: flex;
-  align-items: flex-end;
-  gap: 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 28px;
 }
 .hello::before {
   content: "";
@@ -134,7 +135,23 @@ body {
 .mark:hover,
 .gh:hover { color: var(--ink); }
 .gh { color: var(--mist); }
+.bar .magnet + .magnet { margin-left: 22px; }
 .bar .magnet:last-child { margin-left: auto; }
+.to-works {
+  color: var(--ink);
+  font-family: "Noto Serif SC", "Songti SC", "SimSun", serif;
+  font-size: 22px;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+}
+.to-works::after {
+  content: " →";
+  color: var(--quiet);
+  font-family: "IBM Plex Mono", "PingFang SC", monospace;
+  font-size: 14px;
+  letter-spacing: 0;
+}
+.to-works:hover { color: var(--shard); }
 h1, h2 { margin: 0; }
 h2 {
   margin-top: 10px;
@@ -289,20 +306,23 @@ h1 span:nth-child(3) { margin-left: 1.35em; }
   font-size: 16px;
   line-height: 1.75;
 }
-.detail ul {
+.detail ul,
+.piece ul {
   margin: 22px 0 0;
   padding: 0;
   list-style: none;
   max-width: 40em;
 }
-.detail li {
+.detail li,
+.piece li {
   position: relative;
   padding: 9px 0 9px 16px;
   color: var(--mist);
   font-size: 15px;
   line-height: 1.7;
 }
-.detail li::before {
+.detail li::before,
+.piece li::before {
   content: "";
   position: absolute;
   left: 0;
@@ -338,9 +358,56 @@ h1 span:nth-child(3) { margin-left: 1.35em; }
 }
 .hello-wrap { animation: rise 0.7s var(--ease) both; }
 
+.sheet-body {
+  max-width: 40rem;
+  padding: 56px 0 80px;
+}
+.sheet h1 {
+  font-family: "Noto Serif SC", "Songti SC", "SimSun", serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: clamp(42px, 5vw, 68px);
+  letter-spacing: 0.08em;
+  line-height: 1.15;
+}
+.sheet-label {
+  margin: 52px 0 0;
+  color: var(--shard);
+  font-family: "IBM Plex Mono", "PingFang SC", monospace;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+}
+.piece { margin-top: 32px; }
+.piece h2 {
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: 0.04em;
+}
+.piece h2 a {
+  color: inherit;
+  text-decoration: none;
+}
+.piece h2 a:hover { color: var(--shard); }
+.when {
+  margin: 8px 0 0;
+  color: var(--quiet);
+  font-family: "IBM Plex Mono", "PingFang SC", monospace;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+.piece .lead { margin-top: 12px; }
+.veil.is-sheet {
+  background: linear-gradient(90deg, rgba(7, 6, 12, 0.94) 0%, rgba(7, 6, 12, 0.9) 34%, rgba(7, 6, 12, 0.4) 58%, rgba(7, 6, 12, 0.08));
+}
+.sheet > .bar { left: 64px; right: 64px; top: 28px; }
+
 @media (max-width: 800px) {
   .desk { padding: 22px 20px 28px; }
   .bar { left: 0; right: 0; top: 0; }
+  .sheet > .bar { left: 20px; right: 20px; top: 22px; }
+  .veil.is-sheet {
+    background: linear-gradient(180deg, rgba(7, 6, 12, 0.94), rgba(7, 6, 12, 0.86));
+  }
   .stage { min-height: calc(100dvh - 50px); }
   .hello { flex-direction: column; align-items: flex-start; gap: 12px; }
   .thesis {
