@@ -1,18 +1,28 @@
 (function () {
-  var desk = document.getElementById("desk")
-  var cards = Array.prototype.slice.call(document.querySelectorAll("[data-open]"))
   var current = null
+
+  function desk() {
+    return document.getElementById("desk")
+  }
+
+  function cards() {
+    return Array.prototype.slice.call(document.querySelectorAll("[data-open]"))
+  }
 
   function panel(name) {
     return document.querySelector('.detail[data-project="' + name + '"]')
   }
 
   function close() {
-    if (!current) return
+    if (!current || !current.isConnected) {
+      current = null
+      return
+    }
     var open = current
     current = null
-    desk.classList.remove("is-open")
-    cards.forEach(function (card) {
+    var root = desk()
+    if (root) root.classList.remove("is-open")
+    cards().forEach(function (card) {
       card.setAttribute("aria-pressed", "false")
     })
     open.classList.remove("is-on")
@@ -23,34 +33,36 @@
 
   function open(name, card) {
     var next = panel(name)
-    if (!next) return
+    var root = desk()
+    if (!next || !root) return
     if (current && current !== next) {
       current.classList.remove("is-on")
       current.hidden = true
     }
     current = next
     next.hidden = false
-    desk.classList.add("is-open")
-    cards.forEach(function (item) {
+    root.classList.add("is-open")
+    cards().forEach(function (item) {
       item.setAttribute("aria-pressed", item === card ? "true" : "false")
     })
     window.requestAnimationFrame(function () {
       next.classList.add("is-on")
       var back = next.querySelector("[data-close]")
       if (back) back.focus({ preventScroll: true })
-      var stage = desk.querySelector(".stage")
-      if (stage) stage.scrollLeft = 0
     })
   }
 
-  cards.forEach(function (card) {
-    card.setAttribute("aria-pressed", "false")
-    card.addEventListener("click", function () {
-      var name = card.getAttribute("data-open")
-      var next = panel(name)
-      if (current === next) close()
-      else open(name, card)
-    })
+  document.addEventListener("click", function (event) {
+    var card = event.target.closest("[data-open]")
+    if (!card) return
+    var name = card.getAttribute("data-open")
+    var next = panel(name)
+    if (current === next) close()
+    else open(name, card)
+  })
+
+  document.addEventListener("site:swap", function () {
+    current = null
   })
 
   document.addEventListener("click", function (event) {
