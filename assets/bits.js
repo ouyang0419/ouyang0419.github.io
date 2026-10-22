@@ -172,7 +172,7 @@
   if (sparks && !reduce) {
     var bursts = []
     var sparkRaf = 0
-    var colors = ["#c9b0ff", "#f6f3ee", "#ffffff"]
+    var colors = ["#c6e0b4", "#f4f6f1", "#ffffff"]
 
     function starPath(ctx, x, y, radius, rotation) {
       var pinch = radius * 0.16
@@ -351,7 +351,7 @@
     var mask = "none"
     if (!open && document.querySelector(".case")) {
       mask = window.innerWidth > 800
-        ? "linear-gradient(90deg, transparent 0%, transparent 34%, #000 46%, #000 58%, transparent 72%, transparent 100%)"
+        ? "linear-gradient(90deg, transparent 0%, transparent 20%, #000 32%, #000 44%, transparent 54%, transparent 100%)"
         : "linear-gradient(180deg, transparent 0%, transparent 92%, #000 100%)"
     } else if (!open && sheet) {
       mask = window.innerWidth > 800

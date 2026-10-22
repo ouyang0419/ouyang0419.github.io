@@ -1,8 +1,8 @@
 :root {
   --ink: #f6f3ee;
-  --mist: #d9d2e4;
-  --quiet: #9b93ab;
-  --shard: #c9b0ff;
+  --mist: #d7e0d4;
+  --quiet: #8d988c;
+  --shard: #c6e0b4;
   --line: rgba(255, 255, 255, 0.16);
   --glass: rgba(10, 8, 16, 0.46);
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -13,7 +13,7 @@
 html, body { min-height: 100%; }
 body {
   margin: 0;
-  background: #07060c;
+  background: #101410;
   color: var(--ink);
   font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
   letter-spacing: 0;
@@ -25,7 +25,7 @@ body {
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
-  background: #07060c;
+  background: #101410;
 }
 .field canvas {
   position: absolute;
@@ -36,9 +36,9 @@ body {
 }
 .field.is-fallback {
   background:
-    radial-gradient(ellipse at 28% 18%, rgba(168, 85, 247, 0.38), transparent 46%),
-    radial-gradient(ellipse at 72% 82%, rgba(88, 28, 135, 0.42), transparent 52%),
-    #07060c;
+    radial-gradient(ellipse at 62% 72%, rgba(126, 156, 112, 0.28), transparent 46%),
+    radial-gradient(ellipse at 20% 18%, rgba(40, 58, 42, 0.45), transparent 42%),
+    #101410;
 }
 
 .veil {
@@ -47,7 +47,7 @@ body {
   z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 68% 58% at 18% 78%, rgba(7, 6, 12, 0.82), rgba(7, 6, 12, 0.28) 62%, rgba(7, 6, 12, 0.08));
+    radial-gradient(ellipse 68% 58% at 18% 78%, rgba(13, 17, 15, 0.82), rgba(13, 17, 15, 0.28) 62%, rgba(13, 17, 15, 0.08));
 }
 
 .desk {
@@ -108,7 +108,7 @@ body {
   z-index: -1;
   inset: -18px -48px -14px -28px;
   pointer-events: none;
-  background: radial-gradient(ellipse at 42% 46%, rgba(7, 6, 12, 0.96) 0%, rgba(7, 6, 12, 0.9) 52%, rgba(7, 6, 12, 0) 78%);
+  background: radial-gradient(ellipse at 42% 46%, rgba(13, 17, 15, 0.96) 0%, rgba(13, 17, 15, 0.9) 52%, rgba(13, 17, 15, 0) 78%);
 }
 .desk.is-open .face {
   opacity: 0;
@@ -298,7 +298,7 @@ h1 span:nth-child(3) { margin-left: 1.35em; }
   inset: 0;
   overflow: auto;
   padding: 8px 8px 36px;
-  background: linear-gradient(105deg, rgba(7, 6, 12, 0.92) 0%, rgba(7, 6, 12, 0.78) 46%, rgba(7, 6, 12, 0.2) 100%);
+  background: linear-gradient(105deg, rgba(13, 17, 15, 0.92) 0%, rgba(13, 17, 15, 0.78) 46%, rgba(13, 17, 15, 0.2) 100%);
   visibility: hidden;
   opacity: 0;
   transform: translateY(12px);
@@ -434,7 +434,7 @@ h1 span:nth-child(3) { margin-left: 1.35em; }
 }
 .entry:hover .entry-title { color: var(--shard); }
 .veil.is-sheet {
-  background: linear-gradient(90deg, rgba(7, 6, 12, 0.94) 0%, rgba(7, 6, 12, 0.9) 34%, rgba(7, 6, 12, 0.4) 58%, rgba(7, 6, 12, 0.08));
+  background: linear-gradient(90deg, rgba(13, 17, 15, 0.94) 0%, rgba(13, 17, 15, 0.9) 34%, rgba(13, 17, 15, 0.4) 58%, rgba(13, 17, 15, 0.08));
 }
 .sheet > .bar,
 .case > .bar { left: 64px; right: 64px; top: 28px; }
@@ -458,7 +458,7 @@ h1 span:nth-child(3) { margin-left: 1.35em; }
 .case .piece { margin-top: 0; max-width: 28rem; }
 .case .lead { margin-top: 0; }
 .veil.is-case {
-  background: linear-gradient(90deg, rgba(7, 6, 12, 0.92) 0%, rgba(7, 6, 12, 0.7) 32%, rgba(7, 6, 12, 0.12) 50%, rgba(7, 6, 12, 0.72) 68%, rgba(7, 6, 12, 0.9) 100%);
+  background: linear-gradient(90deg, rgba(13, 17, 15, 0.9) 0%, rgba(13, 17, 15, 0.45) 32%, rgba(13, 17, 15, 0.12) 44%, rgba(13, 17, 15, 0.94) 56%, rgba(13, 17, 15, 0.97) 100%);
 }
 
 @media (max-width: 800px) {
@@ -477,7 +477,7 @@ h1 span:nth-child(3) { margin-left: 1.35em; }
   .case h1 { font-size: 46px; }
   .veil.is-sheet,
   .veil.is-case {
-    background: linear-gradient(180deg, rgba(7, 6, 12, 0.94), rgba(7, 6, 12, 0.86));
+    background: linear-gradient(180deg, rgba(13, 17, 15, 0.94), rgba(13, 17, 15, 0.86));
   }
   .stage { min-height: calc(100dvh - 50px); }
   .hello { flex-direction: column; align-items: flex-start; gap: 12px; }

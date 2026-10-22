@@ -75,14 +75,8 @@
   })
 
   var field = document.getElementById("field")
-  if (field && window.AeroShards) {
-    window.AeroShards.mountAeroShards(field, {
-      backgroundColor: "#000000",
-      dpr: Math.min(window.devicePixelRatio || 1, 1.5),
-      onError: function () {
-        field.classList.add("is-fallback")
-      }
-    })
+  if (field && window.Grove) {
+    window.Grove.mountGrove(field)
   } else if (field) {
     field.classList.add("is-fallback")
   }
