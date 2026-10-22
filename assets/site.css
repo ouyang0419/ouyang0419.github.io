@@ -73,7 +73,13 @@ body {
 .hello-wrap {
   display: flex;
   flex-direction: column;
-  gap: 64px;
+  align-items: flex-start;
+  gap: 36px;
+}
+.hello {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
 }
 .desk.is-open .face {
   opacity: 0;
@@ -125,29 +131,43 @@ h1, h2 {
   letter-spacing: 0.06em;
   line-height: 1;
 }
-h1 { font-size: clamp(64px, 8vw, 104px); }
+h1 {
+  display: flex;
+  flex-direction: column;
+  font-size: clamp(76px, 9vw, 128px);
+  letter-spacing: 0.02em;
+  line-height: 0.9;
+}
+h1 span:last-child { margin-left: 0.62em; }
 h2 {
   margin-top: 10px;
   font-size: clamp(40px, 5vw, 64px);
   letter-spacing: 0.04em;
 }
 .thesis {
-  margin: 20px 0 0;
+  writing-mode: vertical-rl;
+  white-space: nowrap;
+  margin: 0 0 4px;
   color: var(--mist);
-  font-size: 18px;
-  line-height: 1.6;
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  line-height: 1;
 }
 
 .doors {
   display: flex;
-  flex-wrap: wrap;
-  gap: 18px 56px;
-}
-.door {
-  display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 8px;
+  gap: 4px;
+  margin-left: 7.2em;
+}
+.door:nth-child(2) { margin-left: 1.6em; }
+.door:nth-child(3) { margin-left: 3.6em; }
+.door {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 14px;
   padding: 0;
   border: 0;
   background: transparent;
@@ -168,7 +188,7 @@ h2 {
 }
 .door-title {
   font-family: "Noto Serif SC", "Songti SC", "SimSun", serif;
-  font-size: 26px;
+  font-size: 22px;
   letter-spacing: 0.04em;
   line-height: 1.2;
   transition: color 0.3s var(--ease);
@@ -285,9 +305,19 @@ h2 {
   .desk { padding: 22px 20px 28px; }
   .bar { left: 0; right: 0; top: 0; }
   .stage { min-height: calc(100dvh - 50px); }
-  .hello-wrap { gap: 40px; }
-  .doors { flex-direction: column; gap: 22px; }
-  h1 { font-size: 48px; }
+  .hello { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .thesis {
+    writing-mode: horizontal-tb;
+    white-space: normal;
+    margin: 0;
+    letter-spacing: 0.08em;
+  }
+  .hello-wrap { gap: 28px; }
+  .doors { margin-left: 0.4em; gap: 10px; }
+  .door:nth-child(2) { margin-left: 1em; }
+  .door:nth-child(3) { margin-left: 2em; }
+  h1 { font-size: 56px; }
+  h1 span:last-child { margin-left: 0.35em; }
   .detail { position: relative; padding: 0; background: none; }
   .detail[hidden] { display: none; }
   .detail.is-on { display: block; }
