@@ -158,7 +158,7 @@
     }
   }
 
-  document.querySelectorAll(".door, .mark, .gh, .back, .to-works").forEach(magnetize)
+  document.querySelectorAll(".door, .mark, .gh, .back, .to-works, .entry").forEach(magnetize)
 
   var sparks = document.getElementById("sparks")
   if (sparks && !reduce) {

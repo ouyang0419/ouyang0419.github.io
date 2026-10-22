@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#07060c" />
   <link rel="preconnect" href="https://fonts.loli.net" />
   <link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fraunces:ital,opsz,wght@1,9..144,500&family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+SC:wght@500&display=swap" />
-  <link rel="stylesheet" href="assets/site.css?v=12" />
+  <link rel="stylesheet" href="assets/site.css?v=13" />
 </head>
 <body>
   <div id="field" class="field" aria-hidden="true"></div>
@@ -25,76 +25,44 @@
       <h1><span>作品</span></h1>
 
       <p class="sheet-label">工作经历</p>
-
-      <article class="piece">
-        <h2>云朵售后</h2>
-        <p class="when">湖南云客通科技有限公司 · 2026.5 — 至今</p>
-        <p class="lead">独立完成的多平台售后桌面系统，覆盖开发、运维、部署与发布。</p>
-        <ul>
-          <li>接入拼多多、抖店、快手、淘宝、微信小店与京东。各平台接口通过逆向接入，请求中的加密参数与签名算法由本人还原。</li>
-          <li>将工单提交、货款与运费申诉、差评处理、物流拦截催收、发票及售后关怀整理为可每日执行的流程。</li>
-          <li>界面使用 Vue 3，客户端使用 Electron，业务与模型调用由自有后端承担。</li>
-          <li>模型负责判断工单选项与申诉理由，提交仍回到既有业务流程。</li>
-        </ul>
-        <p class="stack">Electron · Vue 3 · TypeScript · Node.js</p>
-      </article>
-
-      <article class="piece">
-        <h2>智能文档推荐</h2>
-        <p class="when">博槐（北京）互联网科技有限责任公司 · 2026.1 — 2026.4</p>
-        <p class="lead">景嘉微智能文档推荐的后端，使用 React。文档拆分后，原文存入 MongoDB，向量存入 PostgreSQL。</p>
-        <ul>
-          <li>接入 WPS，依据当前编辑内容检索历史相似片段，支持插入或复制，并保留表格、图片与复杂公式。</li>
-          <li>复杂公式最初无法完整还原。后改为通过 WPS 底层接口读取公式的原始结构，插入时按该结构写回。</li>
-        </ul>
-        <p class="stack">React · MongoDB · PostgreSQL 向量</p>
-      </article>
-
-      <article class="piece">
-        <h2>数字人直播后端</h2>
-        <p class="when">湖南博皓数字品牌运营管理有限公司 · 2025.3 — 2025.11</p>
-        <p class="lead">直播系统的后端接口和业务逻辑，用 FastAPI。</p>
-        <ul>
-          <li>直播间按多步流程创建，可以落成模板直播间。</li>
-          <li>用 WebSocket 按直播时长扣金币。</li>
-          <li>同一套接口里还有其他业务逻辑。</li>
-        </ul>
-        <p class="stack">Python · FastAPI · WebSocket</p>
-      </article>
+      <nav class="catalog" aria-label="工作经历">
+        <a class="entry" href="works/yunduo.html">
+          <span class="entry-title">云朵售后</span>
+          <span class="when">湖南云客通科技有限公司 · 2026.5 — 至今</span>
+        </a>
+        <a class="entry" href="works/doc.html">
+          <span class="entry-title">智能文档推荐</span>
+          <span class="when">博槐（北京）互联网科技有限责任公司 · 2026.1 — 2026.4</span>
+        </a>
+        <a class="entry" href="works/live.html">
+          <span class="entry-title">数字人直播后端</span>
+          <span class="when">湖南博皓数字品牌运营管理有限公司 · 2025.3 — 2025.11</span>
+        </a>
+      </nav>
 
       <p class="sheet-label">GitHub</p>
-
-      <article class="piece">
-        <h2><a href="https://github.com/ouyang0419/jizhangben">记账本</a></h2>
-        <p class="when">jizhangben</p>
-        <p class="lead">个人用的手机记账应用。账只留在这台手机上，不上传服务器。按月汇总收支，金额以分为单位，可以记分类、账户和备注。</p>
-        <p class="stack">HTML · CSS · JavaScript · Capacitor</p>
-      </article>
-
-      <article class="piece">
-        <h2><a href="https://github.com/ouyang0419/duanxian">短线名单</a></h2>
-        <p class="when">duanxian</p>
-        <p class="lead">普通账户看的沪深主板短线名单。一份名单只放当天要看的票，可以记下买卖、成本、仓位、止损和次日计划。</p>
-        <p class="stack">HTML · JavaScript</p>
-      </article>
-
-      <article class="piece">
-        <h2><a href="https://github.com/ouyang0419/langchain_study">LangChain 学习</a></h2>
-        <p class="when">langchain_study</p>
-        <p class="lead">个人学习，不是线上产品。用 FastAPI 搭一个最小问答服务，把本地文档切分后做向量检索。</p>
-        <p class="stack">Python · FastAPI</p>
-      </article>
-
-      <article class="piece">
-        <h2><a href="https://github.com/ouyang0419/ouyang0419.github.io">个人网站</a></h2>
-        <p class="when">ouyang0419.github.io</p>
-        <p class="lead">现在这个网站。</p>
-        <p class="stack">HTML · CSS · JavaScript</p>
-      </article>
+      <nav class="catalog" aria-label="GitHub 项目">
+        <a class="entry" href="works/jizhangben.html">
+          <span class="entry-title">记账本</span>
+          <span class="when">jizhangben</span>
+        </a>
+        <a class="entry" href="works/duanxian.html">
+          <span class="entry-title">短线名单</span>
+          <span class="when">duanxian</span>
+        </a>
+        <a class="entry" href="works/langchain.html">
+          <span class="entry-title">LangChain 学习</span>
+          <span class="when">langchain_study</span>
+        </a>
+        <a class="entry" href="works/site.html">
+          <span class="entry-title">个人网站</span>
+          <span class="when">ouyang0419.github.io</span>
+        </a>
+      </nav>
     </div>
   </main>
   <script src="assets/aero-shards.js?v=1"></script>
-  <script src="assets/bits.js?v=4"></script>
+  <script src="assets/bits.js?v=5"></script>
   <script src="assets/desk.js?v=3"></script>
 </body>
 </html>

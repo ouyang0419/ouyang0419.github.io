@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>智能文档推荐</title>
+  <meta name="theme-color" content="#07060c" />
+  <link rel="preconnect" href="https://fonts.loli.net" />
+  <link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fraunces:ital,opsz,wght@1,9..144,500&family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+SC:wght@500&display=swap" />
+  <link rel="stylesheet" href="../assets/site.css?v=13" />
+</head>
+<body>
+  <div id="field" class="field" aria-hidden="true"></div>
+  <div id="sparks" class="sparks" aria-hidden="true"></div>
+  <div class="veil is-sheet" aria-hidden="true"></div>
+  <main class="desk sheet" id="desk">
+    <header class="bar">
+      <a class="back" href="../works.html">作品</a>
+      <a class="gh" href="https://github.com/ouyang0419" target="_blank" rel="noreferrer">GitHub</a>
+    </header>
+    <div class="sheet-body">
+      <p class="eyebrow">工作经历</p>
+      <h1><span>智能文档推荐</span></h1>
+      <p class="when">博槐（北京）互联网科技有限责任公司 · 2026.1 — 2026.4</p>
+      <article class="piece">
+        <p class="lead">景嘉微智能文档推荐的后端，使用 React。文档拆分后，原文存入 MongoDB，向量存入 PostgreSQL。</p>
+        <ul>
+          <li>接入 WPS，依据当前编辑内容检索历史相似片段，支持插入或复制，并保留表格、图片与复杂公式。</li>
+          <li>复杂公式最初无法完整还原。后改为通过 WPS 底层接口读取公式的原始结构，插入时按该结构写回。</li>
+        </ul>
+        <p class="stack">React · MongoDB · PostgreSQL 向量</p>
+      </article>
+    </div>
+  </main>
+  <script src="../assets/aero-shards.js?v=1"></script>
+  <script src="../assets/bits.js?v=5"></script>
+  <script src="../assets/desk.js?v=3"></script>
+</body>
+</html>
