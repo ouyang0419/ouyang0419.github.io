@@ -5,82 +5,60 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>欧阳文辉</title>
   <meta name="description" content="欧阳文辉，Python / 全栈。正在做云朵售后，做过智能文档推荐和数字人直播后端。" />
-  <meta name="theme-color" content="#000000" />
-  <link rel="stylesheet" href="assets/site.css?v=2" />
+  <meta name="theme-color" content="#07060c" />
+  <link rel="preconnect" href="https://fonts.loli.net" />
+  <link rel="stylesheet" href="https://fonts.loli.net/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+SC:wght@500&display=swap" />
+  <link rel="stylesheet" href="assets/site.css?v=4" />
 </head>
 <body>
   <div id="field" class="field" aria-hidden="true"></div>
   <div class="veil" aria-hidden="true"></div>
-  <div class="desk" id="desk">
+  <main class="desk" id="desk">
     <div class="stage">
       <div class="face">
-        <header class="intro">
-          <div class="intro-top">
-            <div>
-              <h1>欧阳文辉</h1>
-              <p class="age">Python / 全栈</p>
-            </div>
-            <p class="lead">正在独立开发多平台售后系统，负责从开发到部署发布的全部环节。做过智能文档推荐后端，数字人直播仅负责后端接口。全栈开发、爬虫逆向与服务器运维均可独立交付。</p>
-          </div>
-          <dl class="facts">
-            <dt>工作</dt>
-            <dd>博槐（北京）互联网科技有限责任公司 · 2025 年 12 月—2026 年 2 月<br>湖南博皓数字品牌运营管理有限公司 · Python 开发工程师</dd>
-            <dt>教育</dt>
-            <dd>湖南交通职业技术学院 · 人工智能技术与应用</dd>
-            <dt>技能</dt>
-            <dd>
-              <ul class="chips">
-                <li>Python</li>
-                <li>FastAPI</li>
-                <li>Vue 3</li>
-                <li>React</li>
-                <li>Electron</li>
-                <li>TypeScript</li>
-                <li>PostgreSQL</li>
-                <li>MongoDB</li>
-                <li>爬虫逆向</li>
-                <li>服务器运维</li>
-              </ul>
-            </dd>
-            <dt>奖项</dt>
-            <dd>湖南省楚怡杯技能竞赛二等奖 · 华为云 AI 证书</dd>
-          </dl>
+        <header class="bar">
+          <p class="mark">Python / 全栈</p>
+          <p class="now"><i class="lamp"></i>现在 · 云朵售后</p>
+          <a class="gh" href="https://github.com/ouyang0419" target="_blank" rel="noreferrer">GitHub</a>
+        </header>
+
+        <section class="hello">
+          <h1>欧阳文辉</h1>
+          <p class="thesis">正在独立开发多平台售后系统。<br />从接口还原到部署发布，都由我完成。</p>
+        </section>
+
+        <nav class="doors" aria-label="做过的项目">
+          <button type="button" class="door" data-open="yunduo" aria-controls="detail">
+            <span class="door-kicker"><i class="lamp"></i>进行中</span>
+            <span class="door-title">云朵售后</span>
+            <span class="door-line">独立完成从开发到发布。各平台接口经逆向接入。</span>
+          </button>
+          <button type="button" class="door" data-open="doc" aria-controls="detail-doc">
+            <span class="door-kicker">2025.12—2026.2</span>
+            <span class="door-title">智能文档推荐</span>
+            <span class="door-line">接入 WPS，按当前内容推荐可插入的历史片段。</span>
+          </button>
+          <button type="button" class="door" data-open="live" aria-controls="detail-live">
+            <span class="door-kicker">湖南博皓</span>
+            <span class="door-title">数字人直播后端</span>
+            <span class="door-line">用 FastAPI 做直播间接口，按直播时长扣金币。</span>
+          </button>
+        </nav>
+
+        <footer class="base">
+          <p>博槐（北京）2025.12—2026.2 · 湖南博皓 · 湖南交通职业技术学院 · 人工智能技术与应用</p>
+          <p>楚怡杯技能竞赛二等奖 · 华为云 AI 证书</p>
+          <p class="skills">Python · FastAPI · Vue 3 · React · Electron · TypeScript · PostgreSQL · MongoDB · 爬虫逆向 · 服务器运维</p>
           <p class="contact">
             <a href="tel:19065145245">190 6514 5245</a>
             <a href="mailto:3170387400@qq.com">3170387400@qq.com</a>
             <a href="mailto:19065145245@163.com">19065145245@163.com</a>
-            <a href="https://github.com/ouyang0419" target="_blank" rel="noreferrer">github.com/ouyang0419</a>
           </p>
-        </header>
-
-        <section class="projects" aria-label="做过的项目">
-          <p class="rail-label">做过的项目</p>
-          <button type="button" class="card" data-open="yunduo" aria-controls="detail">
-            <span class="card-meta"><i class="lamp"></i> 进行中</span>
-            <span class="card-body">
-              <span class="card-title">云朵售后</span>
-              <span class="card-copy">独立完成从开发到发布。各平台接口经逆向接入，加密参数与签名算法自行还原。</span>
-            </span>
-          </button>
-          <button type="button" class="card" data-open="doc" aria-controls="detail-doc">
-            <span class="card-meta">2025.12—2026.2</span>
-            <span class="card-body">
-              <span class="card-title">智能文档推荐</span>
-              <span class="card-copy">接入 WPS，按当前内容推荐历史相似片段，表格、公式和图片可直接插入。</span>
-            </span>
-          </button>
-          <button type="button" class="card" data-open="live" aria-controls="detail-live">
-            <span class="card-meta">直播系统</span>
-            <span class="card-body">
-              <span class="card-title">数字人直播后端</span>
-              <span class="card-copy">用 FastAPI 做直播间接口。多步创建模板直播间，并用 WebSocket 按直播时长扣金币。</span>
-            </span>
-          </button>
-        </section>
+        </footer>
       </div>
 
       <article class="detail" id="detail" data-project="yunduo" hidden>
-        <button type="button" class="back" data-close>返回介绍</button>
+        <button type="button" class="back" data-close>返回</button>
         <p class="eyebrow">进行中</p>
         <h2>云朵售后</h2>
         <p class="lead">独立完成的多平台售后桌面系统，覆盖开发、运维、部署与发布。</p>
@@ -94,7 +72,7 @@
       </article>
 
       <article class="detail" id="detail-doc" data-project="doc" hidden>
-        <button type="button" class="back" data-close>返回介绍</button>
+        <button type="button" class="back" data-close>返回</button>
         <p class="eyebrow">博槐（北京） · 景嘉微</p>
         <h2>智能文档推荐</h2>
         <p class="lead">2025 年 12 月至 2026 年 2 月。后端使用 React。文档拆分后，原文存入 MongoDB，向量存入 PostgreSQL。</p>
@@ -106,7 +84,7 @@
       </article>
 
       <article class="detail" id="detail-live" data-project="live" hidden>
-        <button type="button" class="back" data-close>返回介绍</button>
+        <button type="button" class="back" data-close>返回</button>
         <p class="eyebrow">湖南博皓</p>
         <h2>数字人直播后端</h2>
         <p class="lead">直播系统的后端接口和业务逻辑，用 FastAPI。</p>
@@ -117,10 +95,9 @@
         </ul>
         <p class="stack">Python · FastAPI · WebSocket</p>
       </article>
-
     </div>
-  </div>
+  </main>
   <script src="assets/aero-shards.js?v=1"></script>
-  <script src="assets/desk.js?v=2"></script>
+  <script src="assets/desk.js?v=3"></script>
 </body>
 </html>
