@@ -326,4 +326,40 @@
     draw(from)
     window.setTimeout(function () { sweep(performance.now()) }, 200 + Math.random() * 500)
   })
+
+  function placeHole() {
+    var field = document.getElementById("field")
+    var desk = document.getElementById("desk")
+    var hello = document.querySelector(".hello")
+    if (!field || !hello) return
+    var open = desk && desk.classList.contains("is-open")
+    var mask = "none"
+    if (!open) {
+      var rect = hello.getBoundingClientRect()
+      var cx = ((rect.left + rect.width / 2) / window.innerWidth) * 100
+      var cy = ((rect.top + rect.height / 2) / window.innerHeight) * 100
+      var rx = ((rect.width / 2) * 2.7 / window.innerWidth) * 100
+      var ry = ((rect.height / 2) * 2.7 / window.innerHeight) * 100
+      mask = "radial-gradient(ellipse " + rx.toFixed(1) + "% " + ry.toFixed(1) + "% at " + cx.toFixed(1) + "% " + cy.toFixed(1) + "%, transparent 0%, transparent 58%, #000 100%)"
+    }
+    field.style.webkitMaskImage = mask
+    field.style.maskImage = mask
+    var canvas = field.querySelector("canvas")
+    if (canvas) {
+      canvas.style.webkitMaskImage = mask
+      canvas.style.maskImage = mask
+    }
+  }
+
+  placeHole()
+  window.addEventListener("resize", placeHole)
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeHole)
+  var desk = document.getElementById("desk")
+  if (desk && window.MutationObserver) {
+    new MutationObserver(placeHole).observe(desk, { attributes: true, attributeFilter: ["class"] })
+  }
+  var field = document.getElementById("field")
+  if (field && window.MutationObserver) {
+    new MutationObserver(placeHole).observe(field, { childList: true })
+  }
 })()
