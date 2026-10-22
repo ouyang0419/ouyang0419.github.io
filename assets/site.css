@@ -124,26 +124,27 @@ body {
 .mark:hover,
 .gh:hover { color: var(--ink); }
 .gh { margin-left: auto; color: var(--mist); }
-h1, h2 {
-  margin: 0;
+h1, h2 { margin: 0; }
+h2 {
+  margin-top: 10px;
   font-family: "Noto Serif SC", "Songti SC", "SimSun", serif;
   font-weight: 500;
-  letter-spacing: 0.06em;
+  font-size: clamp(40px, 5vw, 64px);
+  letter-spacing: 0.04em;
   line-height: 1;
 }
 h1 {
   display: flex;
   flex-direction: column;
-  font-size: clamp(76px, 9vw, 128px);
-  letter-spacing: 0.02em;
-  line-height: 0.9;
+  font-family: Fraunces, "Iowan Old Style", Palatino, "Palatino Linotype", serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(54px, 6.6vw, 92px);
+  letter-spacing: -0.03em;
+  line-height: 0.92;
 }
-h1 span:last-child { margin-left: 0.62em; }
-h2 {
-  margin-top: 10px;
-  font-size: clamp(40px, 5vw, 64px);
-  letter-spacing: 0.04em;
-}
+h1 span:nth-child(2) { margin-left: 0.42em; }
+h1 span:nth-child(3) { margin-left: 1.35em; }
 .thesis {
   writing-mode: vertical-rl;
   white-space: nowrap;
@@ -159,7 +160,7 @@ h2 {
   flex-direction: column;
   align-items: flex-start;
   gap: 4px;
-  margin-left: 7.2em;
+  margin-left: 4.8em;
 }
 .door:nth-child(2) { margin-left: 1.6em; }
 .door:nth-child(3) { margin-left: 3.6em; }
@@ -316,8 +317,9 @@ h2 {
   .doors { margin-left: 0.4em; gap: 10px; }
   .door:nth-child(2) { margin-left: 1em; }
   .door:nth-child(3) { margin-left: 2em; }
-  h1 { font-size: 56px; }
-  h1 span:last-child { margin-left: 0.35em; }
+  h1 { font-size: 42px; }
+  h1 span:nth-child(2) { margin-left: 0.2em; }
+  h1 span:nth-child(3) { margin-left: 0.7em; }
   .detail { position: relative; padding: 0; background: none; }
   .detail[hidden] { display: none; }
   .detail.is-on { display: block; }
