@@ -3893,36 +3893,107 @@ window.__seek   = v => { clock = v; drawn = null; };
 
     var guideWorld = new THREE.Vector3();
     var guideLocal = new THREE.Vector3();
+    var flyPos = new THREE.Vector3();
+    var flyVel = new THREE.Vector3();
+    var flySpawned = false;
+    var flyAge = 0, flyMode = "", pathU = 0, pathAmp = 180, pathFreq = 6, pathPhase = 0;
+    var fromX = 0, fromY = 0;
+    var wanderA = Math.random() * TAU;
+    var wanderB = Math.random() * TAU;
+    var wanderC = Math.random() * TAU;
+
+    function screenToWorld(sx, sy, out) {
+      var gz = 70;
+      guideLocal.set((sx / Math.max(1, W)) * 2 - 1, -((sy / Math.max(1, H)) * 2 - 1), 0.5);
+      guideLocal.unproject(camera);
+      out.copy(guideLocal).sub(camera.position);
+      if (Math.abs(out.z) < 1e-4) out.z = -1;
+      out.multiplyScalar((gz - camera.position.z) / out.z).add(camera.position);
+      out.z = gz;
+    }
 
     return function update(dt, t) {
       var guide = window.__groveGuide;
-      if (guide && guide.hide) { group.visible = false; return; }
+      if (guide && guide.hide) { flySpawned = false; group.visible = false; return; }
+      if (!guide) flySpawned = false;
       if (guide && isFinite(guide.x) && isFinite(guide.y)) {
         group.visible = true;
         if (group.parent !== scene) {
           scene.add(group);
           group.scale.setScalar(0.16 * Math.max(1, host.scale.x));
         }
-        var hold = guide.hold !== false;
-        var beat = hold ? 1.6 : 8.4;
+        var mode = guide.mode || (guide.hold === false ? "arrive" : "hold");
+        if (!flySpawned) {
+          flySpawned = true;
+          fromX = W + 160 + Math.random() * 180;
+          fromY = guide.y - 40 - Math.random() * Math.min(260, Math.max(80, guide.y * 0.55));
+          fromY = Math.max(72, Math.min(H * 0.62, fromY));
+          pathU = 0;
+          flyAge = 0;
+          flyMode = mode;
+          pathAmp = Math.min(150 + Math.random() * 80, Math.max(100, Math.min(fromY, H - fromY) * 0.75));
+          pathFreq = TAU * (0.85 + Math.random() * 0.45);
+          pathPhase = Math.random() * TAU;
+          screenToWorld(fromX, fromY, flyPos);
+          flyVel.set(0, 0, 0);
+        }
+        if (mode === "depart" && flyMode !== "depart") {
+          guideLocal.copy(flyPos).project(camera);
+          fromX = (guideLocal.x * 0.5 + 0.5) * W;
+          fromY = ((-guideLocal.y) * 0.5 + 0.5) * H;
+          pathU = 0;
+          flyAge = 0;
+          pathAmp = 110 + Math.random() * 90;
+          pathFreq = TAU * (0.7 + Math.random() * 0.5);
+          pathPhase = Math.random() * TAU;
+        }
+        flyMode = mode;
+        flyAge += dt;
+        var toX = guide.x, toY = guide.y;
+        if (mode === "depart") { toX = W + 300; toY = 50 + (pathPhase % 1) * 160; }
+        var arrived = mode !== "depart" && pathU >= 1;
+        var pulse = Math.pow(Math.max(0, Math.sin(flyAge * 2.35 + wanderC)), 1.25);
+        var rate = (mode === "depart" ? 0.34 : 0.16) * (0.72 + 0.95 * pulse);
+        if (!arrived) pathU = Math.min(1, pathU + dt * rate);
+        var segX = toX - fromX, segY = toY - fromY;
+        var segLen = Math.hypot(segX, segY) || 1;
+        var nx = -segY / segLen, ny = segX / segLen;
+        var env = Math.sin(Math.min(pathU, 1) * Math.PI);
+        var bow = (Math.sin(pathU * pathFreq + pathPhase) * pathAmp
+          + Math.sin(pathU * pathFreq * 2.17 + wanderB) * pathAmp * 0.33) * env;
+        var px, py;
+        if (arrived) {
+          px = toX + Math.sin(t * 1.25 + wanderA) * 22 + Math.sin(t * 2.7 + wanderB) * 8;
+          py = toY + Math.cos(t * 0.95 + wanderB) * 16 + Math.sin(t * 2.15 + wanderA) * 6;
+        } else {
+          px = fromX + segX * pathU + nx * bow;
+          py = fromY + segY * pathU + ny * bow;
+          py = Math.max(40, Math.min(H - 56, py));
+        }
+        screenToWorld(px, py, guideWorld);
+        var chase = 1 - Math.pow(arrived ? 0.05 : 0.012, dt);
+        var stepX = (guideWorld.x - flyPos.x) * chase;
+        var stepY = (guideWorld.y - flyPos.y) * chase;
+        flyVel.set(stepX / Math.max(dt, 1e-4), stepY / Math.max(dt, 1e-4), 0);
+        flyPos.x += stepX;
+        flyPos.y += stepY;
+        flyPos.z = 70;
+        group.position.set(flyPos.x, flyPos.y + Math.sin(st.flap) * (arrived ? 2.4 : 6), 70);
+
+        var moving = Math.hypot(flyVel.x, flyVel.y);
+        var beat = arrived ? 2.1 : 6.2 + Math.min(4.5, moving * 0.02);
         st.flap += dt * beat * TAU;
         var rawG = Math.sin(st.flap);
         var shapedG = (rawG < 0 ? -1 : 1) * Math.pow(Math.abs(rawG), 0.72);
-        var phiG = ((hold ? 16 : 34) + (hold ? 5 : 28) * shapedG) * Math.PI / 180;
+        var phiG = ((arrived ? 18 : 30) + (arrived ? 7 : 26) * shapedG) * Math.PI / 180;
         wR1.rotation.z = phiG; wL1.rotation.z = -phiG;
         wR2.rotation.z = phiG * 0.95 - 0.03;
         wL2.rotation.z = -(phiG * 0.95 - 0.03);
-        bend.fore.value = -Math.cos(st.flap) * beat * (hold ? 0.004 : 0.01);
-        bend.hind.value = -Math.cos(st.flap) * beat * (hold ? 0.005 : 0.012);
-        var gz = 70;
-        var bob = hold ? Math.sin(t * 1.4) * 5 : 0;
-        guideLocal.set((guide.x / W) * 2 - 1, -(((guide.y - bob) / H) * 2 - 1), 0.5);
-        guideLocal.unproject(camera);
-        guideWorld.copy(guideLocal).sub(camera.position);
-        guideWorld.multiplyScalar((gz - camera.position.z) / guideWorld.z).add(camera.position);
-        if (hold || !group.position.z) group.position.copy(guideWorld);
-        else group.position.lerp(guideWorld, 1 - Math.pow(0.004, dt));
-        group.quaternion.copy(host.quaternion).multiply(landQ);
+        bend.fore.value = -Math.cos(st.flap) * beat * 0.008;
+        bend.hind.value = -Math.cos(st.flap) * beat * 0.01;
+        var yaw = Math.max(-0.55, Math.min(0.55, -flyVel.x * 0.0035));
+        qTmp.setFromAxisAngle(AX_Z, yaw * 0.35 + Math.sin(t * 2.1 + wanderA) * 0.08);
+        group.quaternion.copy(host.quaternion).multiply(landQ).multiply(qTmp);
         return;
       }
 

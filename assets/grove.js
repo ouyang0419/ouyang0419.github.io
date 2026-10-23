@@ -110,19 +110,16 @@
       if (reduce) { arriving = false; departing = false; parkGuide(); return }
       arriving = true
       departing = true
-      var from = { x: window.innerWidth + 180, y: to.y - 40 }
+      win.__groveGuide = { x: to.x, y: to.y, mode: "arrive" }
       var t0 = performance.now()
       function step(now) {
         if (!isGate()) { arriving = false; departing = false; return }
         var live = markOf() || to
-        var t = Math.min(1, (now - t0) / 1700)
-        var e = 1 - Math.pow(1 - t, 3)
-        win.__groveGuide = {
-          x: from.x + (live.x - from.x) * e,
-          y: from.y + (live.y - from.y) * e,
-          hold: false
+        if (win.__groveGuide && win.__groveGuide.mode === "arrive") {
+          win.__groveGuide.x = live.x
+          win.__groveGuide.y = live.y
         }
-        if (t < 1) window.requestAnimationFrame(step)
+        if (now - t0 < 5600) window.requestAnimationFrame(step)
         else { arriving = false; departing = false; parkGuide() }
       }
       window.requestAnimationFrame(step)
@@ -133,22 +130,14 @@
       if (!win) return
       departing = true
       arriving = false
-      var from = win.__groveGuide && isFinite(win.__groveGuide.x) ? win.__groveGuide : { x: 120, y: window.innerHeight * 0.62 }
-      var toX = window.innerWidth + 160
-      var toY = -80
-      var t0 = performance.now()
-      function step(now) {
-        var t = Math.min(1, (now - t0) / 1100)
-        var e = t * t
-        win.__groveGuide = {
-          x: from.x + (toX - from.x) * e,
-          y: from.y + (toY - from.y) * e,
-          hold: false
-        }
-        if (t < 1) window.requestAnimationFrame(step)
-        else win.__groveGuide = { hide: true }
+      win.__groveGuide = {
+        x: window.innerWidth + 260,
+        y: 40 + Math.random() * 140,
+        mode: "depart"
       }
-      window.requestAnimationFrame(step)
+      window.setTimeout(function () {
+        if (win.__groveGuide && win.__groveGuide.mode === "depart") win.__groveGuide = { hide: true }
+      }, 3200)
     }
 
     function track() {
@@ -165,7 +154,7 @@
       }
     })
     container.appendChild(frame)
-    frame.src = "/assets/sylva/scene.html?v=10"
+    frame.src = "/assets/sylva/scene.html?v=15"
     container.classList.remove("is-fallback")
     track()
 
