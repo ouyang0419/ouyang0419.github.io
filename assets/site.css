@@ -74,9 +74,9 @@ body {
   pointer-events: none;
 }
 .desk.gate.is-leave {
-  transition-duration: 0.7s;
-  transform: translateY(-10vh) scale(1.03);
-  filter: blur(18px);
+  transition-duration: 0.6s;
+  transform: none;
+  filter: none;
 }
 @keyframes arrive {
   from { opacity: 0; transform: translateY(40px); filter: blur(12px); }
@@ -127,6 +127,16 @@ body {
   inset: -18px -48px -14px -28px;
   pointer-events: none;
   background: radial-gradient(ellipse at 42% 46%, rgba(13, 17, 15, 0.96) 0%, rgba(13, 17, 15, 0.9) 52%, rgba(13, 17, 15, 0) 78%);
+}
+.gate .hello::before { display: none; }
+.gate h1 { position: relative; }
+.gate h1::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -24px -56px -18px -32px;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 40% 46%, rgba(13, 17, 15, 0.92) 0%, rgba(13, 17, 15, 0.72) 46%, rgba(13, 17, 15, 0) 74%);
 }
 .desk.is-open .face {
   opacity: 0;
@@ -200,7 +210,7 @@ body {
   line-height: 1.8;
 }
 .veil.is-gate {
-  background: linear-gradient(100deg, rgba(16, 20, 16, 0.62) 0%, rgba(16, 20, 16, 0.22) 36%, rgba(16, 20, 16, 0) 68%);
+  background: linear-gradient(100deg, rgba(16, 20, 16, 0.38) 0%, rgba(16, 20, 16, 0.1) 32%, rgba(16, 20, 16, 0) 58%);
 }
 body.is-crossing .veil.is-gate {
   background: linear-gradient(100deg, rgba(246, 243, 238, 0.2) 0%, rgba(198, 224, 180, 0.1) 40%, rgba(16, 20, 16, 0) 70%);

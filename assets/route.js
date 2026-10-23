@@ -40,10 +40,7 @@
     }
     busy = true
     var leavingGate = desk.classList.contains("gate")
-    if (!reduce) {
-      desk.classList.add("is-leave")
-      if (leavingGate) document.body.classList.add("is-crossing")
-    }
+    if (!reduce) desk.classList.add("is-leave")
     window.setTimeout(function () {
       fetch(url, { credentials: "same-origin" })
         .then(function (response) {
@@ -58,7 +55,7 @@
         .catch(function () {
           location.href = url
         })
-    }, reduce ? 0 : (leavingGate ? 720 : 380))
+    }, reduce ? 0 : (leavingGate ? 520 : 380))
   }
 
   document.addEventListener("click", function (event) {

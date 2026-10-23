@@ -72,7 +72,9 @@
       radial-gradient(72% 44% at 50% 117%, rgba(238,243,231,.50) 0%, rgba(238,243,231,.21) 42%, rgba(238,243,231,.04) 72%, rgba(238,243,231,0) 88%),
       linear-gradient(180deg, rgba(238,243,231,0) 54%, rgba(238,243,231,.03) 78%, rgba(238,243,231,.085) 100%);
     pointer-events:none; z-index:0;
+    transition:opacity 1.1s ease;
   }
+  html.is-sky .hero::after{ opacity:0; }
 
   /* The whole composition lives on a centred 1600 × 880 stage.
      Centred with margins rather than a transform on purpose: a transform would
@@ -3856,7 +3858,46 @@ window.__seek   = v => { clock = v; drawn = null; };
       if (st.pos.z > BOX.z1 - m) out.z -= k * (st.pos.z - BOX.z1 + m);
     }
 
+    var guideWorld = new THREE.Vector3();
+    var guideLocal = new THREE.Vector3();
+
     return function update(dt, t) {
+      var guide = window.__groveGuide;
+      if (guide && guide.hide) { group.visible = false; return; }
+      if (guide && isFinite(guide.x) && isFinite(guide.y)) {
+        group.visible = true;
+        if (group.parent !== scene) {
+          scene.add(group);
+          group.scale.setScalar(0.16 * Math.max(1, host.scale.x));
+        }
+        var hold = guide.hold !== false;
+        var beat = hold ? 1.6 : 8.4;
+        st.flap += dt * beat * TAU;
+        var rawG = Math.sin(st.flap);
+        var shapedG = (rawG < 0 ? -1 : 1) * Math.pow(Math.abs(rawG), 0.72);
+        var phiG = ((hold ? 16 : 34) + (hold ? 5 : 28) * shapedG) * Math.PI / 180;
+        wR1.rotation.z = phiG; wL1.rotation.z = -phiG;
+        wR2.rotation.z = phiG * 0.95 - 0.03;
+        wL2.rotation.z = -(phiG * 0.95 - 0.03);
+        bend.fore.value = -Math.cos(st.flap) * beat * (hold ? 0.004 : 0.01);
+        bend.hind.value = -Math.cos(st.flap) * beat * (hold ? 0.005 : 0.012);
+        var gz = 70;
+        var bob = hold ? Math.sin(t * 1.4) * 5 : 0;
+        guideLocal.set((guide.x / W) * 2 - 1, -(((guide.y - bob) / H) * 2 - 1), 0.5);
+        guideLocal.unproject(camera);
+        guideWorld.copy(guideLocal).sub(camera.position);
+        guideWorld.multiplyScalar((gz - camera.position.z) / guideWorld.z).add(camera.position);
+        if (hold || !group.position.z) group.position.copy(guideWorld);
+        else group.position.lerp(guideWorld, 1 - Math.pow(0.004, dt));
+        group.quaternion.copy(host.quaternion).multiply(landQ);
+        return;
+      }
+
+      if (group.parent !== host) {
+        host.add(group);
+        group.scale.setScalar(0.16);
+      }
+      group.visible = true;
       /* ---- how close is the cursor, and from where ----
          z is weighted down because the pointer is resolved on one plane and
          the butterfly is not on it; what matters is whether the cursor is
