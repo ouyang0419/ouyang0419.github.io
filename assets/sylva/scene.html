@@ -3845,6 +3845,20 @@ window.__seek   = v => { clock = v; drawn = null; };
     var vRight = new THREE.Vector3(), vUp = new THREE.Vector3(), vFwd = new THREE.Vector3();
     var basis = new THREE.Matrix4(), flightQ = new THREE.Quaternion(), qTmp = new THREE.Quaternion();
     var AX_X = new THREE.Vector3(1, 0, 0), AX_Z = new THREE.Vector3(0, 0, 1);
+    var guidePt = new THREE.Vector3(), guideHover = new THREE.Vector3();
+    var guideNdc = new THREE.Vector3(), guideWorld = new THREE.Vector3();
+
+    function screenToHost(sx, sy, out) {
+      guideNdc.set((sx / Math.max(1, W)) * 2 - 1, -((sy / Math.max(1, H)) * 2 - 1), 0.5);
+      guideNdc.unproject(camera);
+      guideWorld.copy(guideNdc).sub(camera.position);
+      if (Math.abs(guideWorld.z) < 1e-4) guideWorld.z = -1;
+      guideWorld.multiplyScalar((36 - camera.position.z) / guideWorld.z).add(camera.position);
+      guideWorld.z = 36;
+      out.copy(guideWorld);
+      host.updateMatrixWorld(true);
+      host.worldToLocal(out);
+    }
 
     function contain(out) {
       var k = 2.2, m = 0.30;
@@ -3870,9 +3884,24 @@ window.__seek   = v => { clock = v; drawn = null; };
       /* snaps on, lets go slowly — a startled insect does not calm instantly */
       spook += (near - spook) * (1 - Math.pow(near > spook ? 1e-7 : 0.22, dt));
 
+      var mark = window.__groveMark;
+      var hasMark = !!(mark && isFinite(mark.x) && isFinite(mark.y));
+      if (hasMark) screenToHost(mark.x, mark.y, guidePt);
+      if (!hasMark && (st.mode === 'guide' || st.mode === 'to-mark')) {
+        st.mode = 'cruise';
+        st.timer = rand(4.0, 6.5);
+        pickTarget();
+      }
+
       st.timer -= dt;
       if (st.mode === 'cruise') { if (st.timer <= 0) { st.mode = 'approach'; st.timer = 14; } }
-      else if (st.mode === 'approach') { if (st.pos.distanceTo(perch) < 0.12 || st.timer <= 0) { st.mode = 'landed'; st.timer = rand(7.0, 10.0); } }
+      else if (st.mode === 'approach') {
+        if (st.pos.distanceTo(perch) < 0.12 || st.timer <= 0) {
+          if (hasMark) { st.mode = 'to-mark'; st.timer = 1.15; }
+          else { st.mode = 'landed'; st.timer = rand(7.0, 10.0); }
+        }
+      }
+      else if (st.mode === 'to-mark') { if (st.timer <= 0) st.mode = 'guide'; }
       else if (st.mode === 'landed') {
         /* the whole point of a perched insect is that it will not stay put */
         if (st.timer <= 0 || spook > 0.30) {
@@ -3889,7 +3918,16 @@ window.__seek   = v => { clock = v; drawn = null; };
       }
       else if (st.mode === 'takeoff') { if (st.timer <= 0) { st.mode = 'cruise'; st.timer = rand(5.0, 8.5); pickTarget(); } }
 
-      var landing = st.mode === 'landed';
+      var guiding = st.mode === 'guide';
+      var resting = st.mode === 'landed' || st.mode === 'to-mark';
+      var guideDist = guiding ? st.pos.distanceTo(guidePt) : 99;
+      var arrived = guiding && guideDist < 0.2;
+      if (arrived) {
+        guideHover.copy(guidePt);
+        guideHover.x += Math.sin(t * 1.35) * 0.04;
+        guideHover.y += Math.cos(t * 1.05) * 0.03;
+      }
+      var landing = resting || arrived;
       st.settle += ((landing ? 1 : 0) - st.settle) * Math.min(1, dt * (landing ? 3.4 : 4.5));
       st.settle = Math.min(st.settle, 1 - spook);
 
@@ -3911,7 +3949,7 @@ window.__seek   = v => { clock = v; drawn = null; };
       bend.fore.value = -flapVel * 0.010;
       bend.hind.value = -flapVel * 0.013;
 
-      var goal = st.mode === 'approach' ? perch : st.tgt;
+      var goal = (st.mode === 'approach' || resting) ? perch : (guiding ? guidePt : st.tgt);
       tmp.copy(goal).sub(st.pos);
       var dist = tmp.length();
       var speed = Math.min(1.5, 0.22 + dist * 1.1);
@@ -3919,7 +3957,7 @@ window.__seek   = v => { clock = v; drawn = null; };
 
       /* butterflies do not fly straight lines — but fade the wander out on
          final approach or it circles the perch forever without touching it */
-      var wander = st.mode === 'approach' ? Math.min(1, dist * 0.8) : 1;
+      var wander = (st.mode === 'approach' || guiding) ? Math.min(1, dist * 0.8) : 1;
       desired.x += (Math.sin(t * 3.1) + 0.6 * Math.sin(t * 7.7 + 1.1)) * 0.20 * wander;
       desired.y += (Math.sin(t * 1.9 + 1.7) + 0.55 * Math.sin(t * 4.6)) * 0.40 * wander;
       desired.z += Math.sin(t * 2.7 + 3.4) * 0.24 * wander;
@@ -3929,14 +3967,14 @@ window.__seek   = v => { clock = v; drawn = null; };
         away.copy(st.pos).sub(m); away.z *= 0.30;
         if (away.lengthSq() > 1e-6) desired.addScaledVector(away.normalize(), spook * 2.3);
       }
-      contain(desired);
+      if (!guiding) contain(desired);
 
       prevVel.copy(st.vel);
       st.vel.lerp(desired, 1 - Math.pow(0.03, dt));
       st.acc.copy(st.vel).sub(prevVel).divideScalar(Math.max(dt, 1e-4));
       st.pos.addScaledVector(st.vel, dt);
       if (st.settle > 0.001) {
-        st.pos.lerp(perch, Math.min(1, dt * 6.0 * st.settle));
+        st.pos.lerp(arrived ? guideHover : perch, Math.min(1, dt * 6.0 * st.settle));
         st.vel.multiplyScalar(1 - Math.min(1, dt * 6.0 * st.settle));
       }
 

@@ -6,7 +6,7 @@
   function mountGrove(container) {
     if (!container || container.querySelector("iframe")) return function () {}
     var frame = document.createElement("iframe")
-    frame.src = "/assets/sylva/scene.html?v=2"
+    frame.src = "/assets/sylva/scene.html?v=4"
     frame.title = ""
     frame.setAttribute("aria-hidden", "true")
     frame.tabIndex = -1
@@ -57,8 +57,24 @@
       }
     }
 
+    function publishMark() {
+      var win = frame.contentWindow
+      if (!win) return
+      var desk = document.getElementById("desk")
+      var link = desk && desk.classList.contains("gate") ? document.querySelector("a.to-works") : null
+      if (!link) { win.__groveMark = null; return }
+      var r = link.getBoundingClientRect()
+      win.__groveMark = { x: r.right + 46, y: r.top + r.height * 0.42 }
+    }
+
+    function watchMark() {
+      publishMark()
+      window.requestAnimationFrame(watchMark)
+    }
+
     frame.addEventListener("load", placeBuds)
     placeBuds()
+    watchMark()
     window.addEventListener("resize", placeBuds)
     document.addEventListener("site:swap", function () {
       window.requestAnimationFrame(placeBuds)
