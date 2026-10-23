@@ -468,6 +468,7 @@ h1 span:nth-child(3) { margin-left: 1.35em; }
 }
 .case .when { margin-top: 16px; }
 .case .piece { margin-top: 0; max-width: 28rem; }
+.case .piece:has(.case-shots) { max-width: 36rem; }
 .case .lead { margin-top: 0; }
 .case-shot { margin: 0 0 22px; }
 .case-shot img {
@@ -481,6 +482,19 @@ h1 span:nth-child(3) { margin-left: 1.35em; }
   width: auto;
   max-width: 100%;
   max-height: 68vh;
+}
+.case-shots {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0 0 22px;
+}
+.case-shots img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
 }
 .bud-shot.is-mid { object-position: center; }
 .veil.is-case {
