@@ -6,7 +6,7 @@
   function mountGrove(container) {
     if (!container || container.querySelector("iframe")) return function () {}
     var frame = document.createElement("iframe")
-    frame.src = "/assets/sylva/scene.html"
+    frame.src = "/assets/sylva/scene.html?v=2"
     frame.title = ""
     frame.setAttribute("aria-hidden", "true")
     frame.tabIndex = -1

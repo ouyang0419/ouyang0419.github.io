@@ -3551,8 +3551,7 @@ window.__seek   = v => { clock = v; drawn = null; };
       } else {
         span  = 0.78;
         lead  = -0.06 - 0.26 * sp;
-        chord = (0.54 + 0.48 * sp) * Math.pow(Math.max(0, 1 - Math.pow(sp, 2.2)), 0.55);
-        chord *= 1 + 0.035 * Math.cos(sp * 22.0);
+        chord = (0.50 + 0.36 * sp) * Math.pow(Math.max(0, 1 - Math.pow(sp, 2.4)), 0.62);
       }
       /* both pairs hinge on the thorax, so both roots have to be short or the
          wing floats beside the body instead of growing out of it */
@@ -3662,54 +3661,25 @@ window.__seek   = v => { clock = v; drawn = null; };
            a hot chartreuse square on, sliding to deep green at a glance.
            Albedo runs past 1 on purpose; it is HDR into ACES. */
         '  float facing = abs(dot(N, V));',
-        /* Kept well under 1: on the cherry bough this ran HDR into ACES on
-           purpose, but that scene was a sunset. Here the same numbers clip to
-           cream and the green never arrives. */
-        '  vec3 face = vec3(0.330, 0.560, 0.042);',
-        '  vec3 edge = vec3(0.062, 0.190, 0.014);',
-        '  vec3 wing = mix(edge, face, pow(facing, 0.65));',
-        '  wing *= 0.62 + 0.72 * smoothstep(0.02, 0.46, s) * (1.0 - 0.34 * smoothstep(0.45, 1.0, u));',
-        /* scales lie in overlapping rows running out from the base */
+        '  vec3 parchment = vec3(0.93, 0.90, 0.72);',
+        '  vec3 lemon = vec3(0.86, 0.78, 0.28);',
+        '  vec3 moss = vec3(0.42, 0.48, 0.18);',
+        '  vec3 ink = vec3(0.16, 0.13, 0.07);',
+        '  float membrane = smoothstep(0.0, 0.22, s);',
+        '  vec3 wing = mix(moss, mix(lemon, parchment, pow(facing, 0.55)), membrane);',
+        '  float margin = max(smoothstep(0.84, 0.98, s), smoothstep(0.88, 1.0, u) * 0.7);',
+        '  vec3 c = mix(wing, ink, margin * 0.92);',
+        '  float cell = exp(-pow((s - 0.46) / 0.06, 2.0)) * exp(-pow((u - 0.36) / 0.09, 2.0));',
+        '  c = mix(c, vec3(0.62, 0.34, 0.10), (1.0 - uHind) * cell * 0.55);',
+        '  float vein = 1.0 - smoothstep(0.012, 0.04, abs(u - 0.40));',
+        '  vein *= smoothstep(0.16, 0.34, s) * (1.0 - smoothstep(0.72, 0.9, s));',
+        '  c = mix(c, vec3(0.55, 0.48, 0.26), vein * 0.28);',
         '  vec4 tx = texture2D(uTex, vUv);',
-        '  float rows = tx.r, grain = tx.g, mottle = tx.b, shim = tx.a;',
-        '  wing *= 0.78 + 0.44 * mottle;',
-        /* the hue swings green to yellow across the disc rather than merely
-           brightening — that swing is what reads as diffraction */
-        '  wing = mix(wing * vec3(0.46, 1.14, 0.30), wing * vec3(1.34, 1.06, 0.16), shim);',
-        '  vec3 dark  = vec3(0.030, 0.026, 0.014);',
-        '  vec3 cream = vec3(0.520, 0.500, 0.290);',
-        '  vec3 amber = vec3(0.400, 0.270, 0.045);',
-        /* the wide sooty border down the whole distal edge */
-        '  float border = max(smoothstep(0.60, 0.74, s), smoothstep(0.78, 0.94, u));',
-        '  vec3 c = mix(wing, dark, border);',
-        /* veins: pale tan over the wing, lost inside the border */
-        '  float vp = pow(u, 0.72) * 5.2 + s * 0.55 + (mottle - 0.5) * 0.22;',
-        '  float vk = abs(fract(vp) - 0.5) * 2.0;',
-        '  float aa = fwidth(vp) * 2.0 + 0.045;',
-        '  float vw = 0.050 * (1.0 - 0.42 * s);',
-        '  float vein = 1.0 - smoothstep(vw, vw + aa, vk);',
-        '  c = mix(c, vec3(0.430, 0.400, 0.180), vein * 0.26 * (1.0 - border * 0.85));',
-        /* lunules set into the border: cream on the forewing, amber behind */
-        '  float lunBand = exp(-pow((border - 0.58) / 0.20, 2.0));',
-        '  float edgeT = u * 0.62 + s * 0.58;',
-        '  float lun = exp(-pow((fract(edgeT * 7.0) - 0.5) * 4.2, 2.0));',
-        '  c = mix(c, mix(cream, amber, uHind), border * lunBand * lun * 0.90);',
-        /* the big apical blazes, forewing only */
-        '  float ap1 = exp(-pow((s - 0.86) / 0.085, 2.0)) * exp(-pow((u - 0.15) / 0.100, 2.0));',
-        '  float ap2 = exp(-pow((s - 0.66) / 0.070, 2.0)) * exp(-pow((u - 0.07) / 0.075, 2.0));',
-        '  c = mix(c, cream, (1.0 - uHind) * clamp(ap1 + ap2 * 0.75, 0.0, 1.0) * 0.42);',
-        '  c *= 0.88 + 0.25 * rows;',
-        '  c *= 0.935 + 0.13 * grain;',
-        /* the very edge is a fringe of loose scales, paler and duller */
-        '  float rim = clamp(smoothstep(0.93, 1.0, s) + smoothstep(0.955, 1.0, u), 0.0, 1.0);',
-        '  c = mix(c, vec3(0.230, 0.215, 0.150), rim * 0.55);',
+        '  c *= 0.96 + 0.06 * tx.g;',
         '  float wrap = dot(N, uKeyDir) * 0.5 + 0.5;',
-        '  vec3 lit = c * (uKeyCol * (0.34 + 1.05 * wrap) + uAmbCol * (0.5 + 0.5 * N.y) * 1.5);',
-        /* light burning through the membrane from behind */
-        '  float back = pow(max(dot(V, -uKeyDir), 0.0), 2.4);',
-        '  lit += mix(vec3(0.86, 0.78, 0.20), vec3(0.34, 0.60, 0.12), border) * back * 0.42;',
-        '  float sheen = pow(max(dot(reflect(-uKeyDir, N), V), 0.0), 26.0);',
-        '  lit += vec3(0.86, 0.96, 0.52) * sheen * 0.34 * (1.0 - border);',
+        '  vec3 lit = c * (uKeyCol * (0.55 + 0.7 * wrap) + uAmbCol * (0.62 + 0.38 * N.y));',
+        '  float sheen = pow(max(dot(reflect(-uKeyDir, N), V), 0.0), 48.0);',
+        '  lit += vec3(1.0, 0.98, 0.9) * sheen * 0.12 * (1.0 - margin);',
         '  gl_FragColor = vec4(lit, 1.0);',
         '  #include <tonemapping_fragment>',
         '  #include <encodings_fragment>',
@@ -3754,7 +3724,7 @@ window.__seek   = v => { clock = v; drawn = null; };
         '  float furry = smoothstep(-0.02, 0.10, vP.z);',
         '  vec3 base = mix(vec3(0.020, 0.019, 0.011), vec3(0.070, 0.064, 0.030), band * (1.0 - furry * 0.5));',
         '  float fleck = smoothstep(0.86, 0.99, sin(vP.z * 120.0) * sin(atan(vP.y, vP.x) * 7.0) * 0.5 + 0.5);',
-        '  base = mix(base, vec3(0.46, 0.44, 0.24), fleck * 0.75);',
+        '  base = mix(base, vec3(0.22, 0.18, 0.10), fleck * 0.35);',
         '  float fur = gfbm(vec2(atan(vP.y, vP.x) * 9.0, vP.z * 70.0)) * 0.5 + 0.5;',
         '  base *= mix(1.0, 0.62 + 0.85 * fur, furry);',
         '  float d = max(dot(N, uKeyDir), 0.0);',
@@ -3815,7 +3785,7 @@ window.__seek   = v => { clock = v; drawn = null; };
 
     /* a good deal smaller than it was on the cherry bough — that scene framed
        one branch, this one frames a whole root */
-    group.scale.setScalar(0.205);
+    group.scale.setScalar(0.16);
     group.renderOrder = 5;
     group.traverse(function (o) { o.frustumCulled = false; });
     host.add(group);
