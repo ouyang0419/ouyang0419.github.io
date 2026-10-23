@@ -18,13 +18,16 @@
     desk.className = next.className + (reduce ? "" : " is-enter")
     desk.innerHTML = next.innerHTML
     document.title = doc.title
+    document.body.classList.remove("is-crossing")
     var veil = document.querySelector(".veil")
     var nextVeil = doc.querySelector(".veil")
     if (veil && nextVeil) veil.className = nextVeil.className
     window.scrollTo(0, 0)
     if (window.SiteBits) window.SiteBits.refresh()
     if (!reduce) {
-      window.setTimeout(function () { desk.classList.remove("is-enter") }, 900)
+      window.setTimeout(function () {
+        desk.classList.remove("is-enter")
+      }, 1100)
     }
   }
 
@@ -36,7 +39,11 @@
       return
     }
     busy = true
-    if (!reduce) desk.classList.add("is-leave")
+    var leavingGate = desk.classList.contains("gate")
+    if (!reduce) {
+      desk.classList.add("is-leave")
+      if (leavingGate) document.body.classList.add("is-crossing")
+    }
     window.setTimeout(function () {
       fetch(url, { credentials: "same-origin" })
         .then(function (response) {
@@ -51,7 +58,7 @@
         .catch(function () {
           location.href = url
         })
-    }, reduce ? 0 : 380)
+    }, reduce ? 0 : (leavingGate ? 720 : 380))
   }
 
   document.addEventListener("click", function (event) {

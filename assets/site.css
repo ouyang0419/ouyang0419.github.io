@@ -56,6 +56,7 @@ body {
   pointer-events: none;
   background:
     radial-gradient(ellipse 68% 58% at 18% 78%, rgba(13, 17, 15, 0.82), rgba(13, 17, 15, 0.28) 62%, rgba(13, 17, 15, 0.08));
+  transition: background 0.7s var(--ease);
 }
 
 .desk {
@@ -71,6 +72,11 @@ body {
   transform: translateY(-24px) scale(0.985);
   filter: blur(8px);
   pointer-events: none;
+}
+.desk.gate.is-leave {
+  transition-duration: 0.7s;
+  transform: translateY(-10vh) scale(1.03);
+  filter: blur(18px);
 }
 @keyframes arrive {
   from { opacity: 0; transform: translateY(40px); filter: blur(12px); }
@@ -182,6 +188,23 @@ body {
   letter-spacing: 0;
 }
 .to-works:hover { color: var(--shard); }
+.gate .stage { align-items: flex-end; }
+.gate .hello-wrap { margin-bottom: 16vh; }
+.gate-line {
+  max-width: 22em;
+  margin: 8px 0 0;
+  color: var(--mist);
+  font-family: "Noto Serif SC", "Songti SC", "SimSun", serif;
+  font-size: 18px;
+  letter-spacing: 0.08em;
+  line-height: 1.8;
+}
+.veil.is-gate {
+  background: linear-gradient(100deg, rgba(16, 20, 16, 0.62) 0%, rgba(16, 20, 16, 0.22) 36%, rgba(16, 20, 16, 0) 68%);
+}
+body.is-crossing .veil.is-gate {
+  background: linear-gradient(100deg, rgba(246, 243, 238, 0.2) 0%, rgba(198, 224, 180, 0.1) 40%, rgba(16, 20, 16, 0) 70%);
+}
 h1, h2 { margin: 0; }
 h2 {
   margin-top: 10px;
@@ -724,6 +747,6 @@ h1 span:nth-child(3) { margin-left: 1.35em; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .face, .detail, .hello-wrap, .desk { animation: none; transition: none; }
+  .face, .detail, .hello-wrap, .desk, .field iframe { animation: none; transition: none; }
   .desk.is-leave { opacity: 1; transform: none; filter: none; }
 }
