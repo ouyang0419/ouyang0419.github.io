@@ -548,6 +548,20 @@ h1 span:nth-child(3) { margin-left: 1.35em; }
 .limb-page h1 span:nth-child(2),
 .limb-page h1 span:nth-child(3) { margin-left: 0; }
 .limb-page .hello::before { display: none; }
+.limb-page > .bar .back {
+  position: fixed;
+  left: 64px;
+  top: 18vh;
+  z-index: 5;
+  width: max-content;
+  white-space: nowrap;
+  font-family: "Noto Serif SC", "Songti SC", "SimSun", serif;
+  font-size: 22px;
+  letter-spacing: 0.18em;
+  color: var(--ink);
+  text-shadow: 0 10px 28px rgba(8, 12, 8, 0.55);
+}
+.limb-page > .bar .back::before { color: var(--quiet); }
 .sky { margin-top: 12vh; max-width: 18em; }
 .limb-caption {
   margin: 14px 0 0;
@@ -732,6 +746,7 @@ h1 span:nth-child(3) { margin-left: 1.35em; }
   .limb-page h1 span:nth-child(2),
   .limb-page h1 span:nth-child(3) { margin-left: 0; }
   .sky { margin-top: 28px; }
+  .limb-page > .bar .back { left: 20px; top: 76px; font-size: 18px; }
   .bud-name { font-size: 14px; }
   .bud-note { display: none; }
   .stage { min-height: calc(100dvh - 50px); }
