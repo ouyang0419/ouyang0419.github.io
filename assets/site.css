@@ -74,9 +74,25 @@ body {
   pointer-events: none;
 }
 .desk.gate.is-leave {
-  transition-duration: 0.7s;
-  transform: translateY(-10vh) scale(1.03);
-  filter: blur(18px);
+  opacity: 1;
+  transform: none;
+  filter: none;
+  transition: none;
+}
+@keyframes fadeOutUp {
+  from { opacity: 1; }
+  to { opacity: 0; transform: translate3d(0, -100%, 0); }
+}
+.desk.gate.is-leave .hello {
+  animation: fadeOutUp 1s ease both;
+}
+@keyframes budFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.desk.limb-page.is-enter .bud {
+  animation: budFade 0.7s ease both;
+  animation-delay: calc(0.08s + var(--i) * 90ms);
 }
 @keyframes arrive {
   from { opacity: 0; transform: translateY(40px); filter: blur(12px); }

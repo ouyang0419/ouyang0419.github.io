@@ -34,11 +34,19 @@
       return { u: u, oy: oy0 - lift, lift: lift, box: box, boxH: boxH }
     }
 
+    var freezeStage = false
+
     function placeBuds() {
       var m = metrics()
+      if (freezeStage) {
+        m.lift = 0
+        var narrow = window.innerWidth <= 900
+        var stageH = (narrow ? 1625 : 880) * (window.innerWidth / (narrow ? 760 : 1600))
+        m.oy = narrow ? 0 : (window.innerHeight - stageH) / 2
+      }
       var doc = frame.contentDocument
       var stage = doc && doc.getElementById("stage")
-      if (stage) {
+      if (stage && !freezeStage) {
         stage.style.transform = "translateY(" + (-m.lift) + "px)"
         if (frame.contentWindow) frame.contentWindow.dispatchEvent(new Event("resize"))
       }
@@ -61,6 +69,7 @@
       var win = frame.contentWindow
       if (!win) return
       var desk = document.getElementById("desk")
+      if (desk && desk.classList.contains("is-leave")) return
       var link = desk && desk.classList.contains("gate") ? document.querySelector("a.to-works") : null
       if (!link) { win.__groveMark = null; return }
       var r = link.getBoundingClientRect()
@@ -77,7 +86,12 @@
     watchMark()
     window.addEventListener("resize", placeBuds)
     document.addEventListener("site:swap", function () {
-      window.requestAnimationFrame(placeBuds)
+      var desk = document.getElementById("desk")
+      freezeStage = !!(desk && desk.classList.contains("gate"))
+      window.requestAnimationFrame(function () {
+        placeBuds()
+        freezeStage = false
+      })
     })
     return function () {}
   }
